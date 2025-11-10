@@ -170,7 +170,11 @@ const Preloader: React.FC<PreloaderProps> = ({
                                             Math.random() * 100,
                                             Math.random() * 50 - 25,
                                         ],
-                                        rotate: [180, 0, Math.random() * 20 - 10],
+                                        rotate: [
+                                            180,
+                                            0,
+                                            Math.random() * 20 - 10,
+                                        ],
                                         opacity: [0, 0.15, 0.15],
                                     }}
                                     transition={{
