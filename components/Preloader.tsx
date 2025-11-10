@@ -19,7 +19,6 @@ interface BlockStyle {
 }
 
 const Preloader: React.FC<PreloaderProps> = ({
-    name = 'Cyril Ofori Kupualor',
     variant = 'ide',
     isReady = false,
     backgroundImageUrl,

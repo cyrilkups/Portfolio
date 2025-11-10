@@ -4,7 +4,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import React from 'react';
 import Button from '@/components/Button';
-import { GENERAL_INFO } from '@/lib/data';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 

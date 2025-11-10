@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Anton, Roboto_Flex } from 'next/font/google';
 import { ReactLenis } from 'lenis/react';
-import { SiPython } from 'react-icons/si';
 
 import 'lenis/dist/lenis.css';
 import './globals.css';

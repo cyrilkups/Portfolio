@@ -1,5 +1,4 @@
 import { GENERAL_INFO, SOCIAL_LINKS } from '@/lib/data';
-import { GitFork, Star } from 'lucide-react';
 import { Icon } from '@iconify/react';
 
 interface RepoStats {
@@ -8,7 +7,7 @@ interface RepoStats {
 }
 
 const Footer = async () => {
-    const repoStats = await fetch(
+    await fetch(
         'https://api.github.com/repos/cyrilkups/my-portfolio-web',
         {
             next: {
@@ -16,9 +15,6 @@ const Footer = async () => {
             },
         },
     );
-
-    const { stargazers_count, forks_count } =
-        (await repoStats.json()) as RepoStats;
 
     return (
         <footer className="text-center pb-5" id="contact">
