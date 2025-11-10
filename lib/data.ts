@@ -7,7 +7,7 @@ export const GENERAL_INFO = {
     emailBody: 'Hi Cyril, I am reaching out to you because...',
 
     oldPortfolio: 'https://www.legacy.me.toinfinite.dev',
-    upworkProfile: 'https://www.upwork.com/freelancers/tajmirul',
+    upworkProfile: 'https://www.upwork.com/freelancers/cyrilkups',
 };
 
 export const SOCIAL_LINKS = [
