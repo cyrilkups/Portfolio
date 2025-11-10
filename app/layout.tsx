@@ -29,8 +29,8 @@ const robotoFlex = Roboto_Flex({
 });
 
 export const metadata: Metadata = {
-    title: 'Portfolio - Cyril Islam',
-    description: 'Personal portfolio of Cyril Islam',
+    title: 'Portfolio - Cyril Kups',
+    description: 'Personal portfolio of Cyril Kups',
     icons: {
         icon: '/favicon.svg',
     },
