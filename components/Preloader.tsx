@@ -68,7 +68,7 @@ const Preloader: React.FC<PreloaderProps> = ({
         }, 50);
 
         return () => clearInterval(typingInterval);
-    }, [currentLine, currentChar, variant, isReady]);
+    }, [currentLine, currentChar, variant, isReady, codeLines]);
 
     // Blinking cursor
     useEffect(() => {
@@ -87,11 +87,9 @@ const Preloader: React.FC<PreloaderProps> = ({
     const containerVariants = {
         hidden: { opacity: 1 },
         visible: { opacity: 1 },
-        exit: {
-            opacity: 0,
-            transition: { duration: 0.6, ease: 'easeOut' },
-        },
     };
+
+    const exitTransition = { duration: 0.6 };
 
     const boxVariants = {
         hidden: { scale: 0, opacity: 0, rotateZ: -180 },
@@ -102,7 +100,6 @@ const Preloader: React.FC<PreloaderProps> = ({
             transition: {
                 delay: i * 0.15,
                 duration: 0.6,
-                ease: [0.68, -0.55, 0.265, 1.55], // Bounce effect
             },
         }),
     };
@@ -134,7 +131,8 @@ const Preloader: React.FC<PreloaderProps> = ({
                     variants={prefersReducedMotion ? {} : containerVariants}
                     initial="hidden"
                     animate="visible"
-                    exit="exit"
+                    exit={{ opacity: 0 }}
+                    transition={exitTransition}
                     aria-label="Loading content"
                     role="status"
                 >
