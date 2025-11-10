@@ -56,6 +56,8 @@ export const MY_STACK = {
         { name: 'Jira', icon: 'logos:jira' },
         { name: 'AWS', icon: 'logos:aws' },
         { name: 'Cloudflare', icon: 'logos:cloudflare-icon' },
+        { name: 'SketchUp', icon: 'simple-icons:sketchup' },
+        { name: 'Enscape', icon: '/logo/enscape.png', isImage: true },
     ],
     concepts: [
         { name: 'Parallel Computing' },
@@ -553,5 +555,11 @@ export const MY_EXPERIENCE = [
         title: 'Product Strategy Extern',
         company: 'PricewaterhouseCoopers',
         duration: 'Apr 2025 - Jul 2025',
+    },
+    {
+        title: 'Research Assistant',
+        company: 'Kwame Nkrumah University of Science and Technology',
+        duration: 'Oct 2023 - Sep 2024',
+        url: 'https://webapps.knust.edu.gh/just/index.php?journal=just&page=search&op=authors&path%5B%5D=view&givenName=Cyril%20Ofori%20&familyName=Kupualor&affiliation=&country=GH&authorName=Kupualor%2C%20Cyril%20Ofori%20',
     },
 ];

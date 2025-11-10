@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import React, { useRef } from 'react';
 import { Icon } from '@iconify/react';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -77,16 +78,27 @@ const Skills = () => {
                                         className="slide-up flex gap-3.5 items-center leading-none"
                                         key={item.name}
                                     >
-                                        {/* Iconify icons from data; no icons for concepts */}
+                                        {/* Render image if isImage flag is true */}
                                         {key !== 'concepts' &&
-                                            'icon' in item &&
-                                            item.icon && (
-                                                <Icon
-                                                    icon={item.icon}
-                                                    width={40}
-                                                    height={40}
-                                                />
-                                            )}
+                                        'icon' in item &&
+                                        item.icon &&
+                                        'isImage' in item &&
+                                        item.isImage ? (
+                                            <Image
+                                                src={item.icon}
+                                                alt={item.name}
+                                                width={40}
+                                                height={40}
+                                            />
+                                        ) : key !== 'concepts' &&
+                                          'icon' in item &&
+                                          item.icon ? (
+                                            <Icon
+                                                icon={item.icon}
+                                                width={40}
+                                                height={40}
+                                            />
+                                        ) : null}
                                         <span className="text-2xl capitalize">
                                             {item.name}
                                         </span>
