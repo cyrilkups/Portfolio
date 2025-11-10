@@ -2,7 +2,7 @@
 
 import SectionTitle from '@/components/SectionTitle';
 import InterestCard from '@/components/InterestCard';
-import { Heart, BookOpen, Music, Cpu, Coffee, Plane } from 'lucide-react';
+import { Trophy, Waves, Music, Cpu, Coffee, Plane } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
@@ -14,13 +14,13 @@ const interests = [
     {
         title: 'Volleyball',
         imageSrc: '/projects/gif/volleyball_6450964.gif',
-        icon: Heart,
+        icon: Trophy,
         isGif: true,
     },
     {
         title: 'Swimming',
         imageSrc: '/projects/gif/swimming_17091781.gif',
-        icon: BookOpen,
+        icon: Waves,
         isGif: true,
     },
     {
