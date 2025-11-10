@@ -151,16 +151,32 @@ const Preloader: React.FC<PreloaderProps> = ({
                                         height: style.height,
                                         left: style.left,
                                         top: style.top,
-                                        opacity: 0.1,
+                                        opacity: 0.15,
+                                    }}
+                                    initial={{
+                                        x: Math.random() * 400 - 200,
+                                        y: -300,
+                                        opacity: 0,
+                                        rotate: 180,
                                     }}
                                     animate={{
-                                        y: [0, -20, 0],
-                                        rotate: [0, 10, -10, 0],
+                                        x: [
+                                            Math.random() * 400 - 200,
+                                            Math.random() * 200 - 100,
+                                            Math.random() * 300 - 150,
+                                        ],
+                                        y: [
+                                            -300,
+                                            Math.random() * 100,
+                                            Math.random() * 50 - 25,
+                                        ],
+                                        rotate: [180, 0, Math.random() * 20 - 10],
+                                        opacity: [0, 0.15, 0.15],
                                     }}
                                     transition={{
-                                        duration: style.duration,
-                                        repeat: Infinity,
-                                        delay: style.delay,
+                                        duration: 2 + Math.random() * 1.5,
+                                        ease: 'easeOut',
+                                        times: [0, 0.4, 1],
                                     }}
                                 />
                             ))
