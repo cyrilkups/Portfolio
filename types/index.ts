@@ -29,3 +29,10 @@ export interface IProject {
     liveUrl?: string;
     sourceCode?: string;
 }
+
+export interface IExperience {
+    title: string;
+    company: string;
+    duration: string;
+    url?: string;
+}
