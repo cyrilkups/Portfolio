@@ -141,7 +141,9 @@ export function TestimonialCarousel({ className }: TestimonialCarouselProps) {
         // Remove GitHub and Twitter for the first carousel item (Strada Scholar)
         if (
             currentIndex === 0 &&
-            (social.label === 'GitHub' || social.label === 'Twitter' || social.label === 'Website')
+            (social.label === 'GitHub' ||
+                social.label === 'Twitter' ||
+                social.label === 'Website')
         ) {
             return false;
         }
