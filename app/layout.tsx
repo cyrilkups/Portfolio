@@ -31,6 +31,9 @@ const robotoFlex = Roboto_Flex({
 export const metadata: Metadata = {
     title: 'Portfolio - Cyril Islam',
     description: 'Personal portfolio of Cyril Islam',
+    icons: {
+        icon: '/favicon.svg',
+    },
 };
 
 export default function RootLayout({
