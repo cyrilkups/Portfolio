@@ -11,7 +11,7 @@ import {
     Linkedin,
     ChevronLeft,
     ChevronRight,
-    Zap,
+    Globe,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -133,7 +133,7 @@ export function TestimonialCarousel({ className }: TestimonialCarouselProps) {
             label: 'LinkedIn',
         },
         {
-            icon: Zap,
+            icon: Globe,
             url: currentTestimonial.websiteUrl,
             label: 'Website',
         },
@@ -141,7 +141,7 @@ export function TestimonialCarousel({ className }: TestimonialCarouselProps) {
         // Remove GitHub and Twitter for the first carousel item (Strada Scholar)
         if (
             currentIndex === 0 &&
-            (social.label === 'GitHub' || social.label === 'Twitter')
+            (social.label === 'GitHub' || social.label === 'Twitter' || social.label === 'Website')
         ) {
             return false;
         }
