@@ -269,7 +269,7 @@ const Preloader: React.FC<PreloaderProps> = ({
                                             ))}
                                         </div>
 
-                                        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl border-8 border-gray-700 overflow-hidden">
+                                        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl border-2 md:border-8 border-blue-500 md:border-gray-700 overflow-hidden">
                                             {/* Window Title Bar with Lego-style buttons */}
                                             <div className="bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-4 flex items-center gap-3 border-b-4 border-gray-900">
                                                 <div className="flex gap-2">

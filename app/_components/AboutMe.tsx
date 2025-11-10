@@ -65,7 +65,7 @@ const AboutMe = () => {
                     This is me.
                 </p>
 
-                <div className="grid md:grid-cols-12 mt-9">
+                <div className="grid md:grid-cols-12 mt-9 md:mt-9 pt-9 md:pt-0">
                     <div className="md:col-span-5">
                         <p className="text-5xl slide-up-and-fade">
                             Hi, I&apos;m Cyril.
