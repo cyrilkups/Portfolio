@@ -35,7 +35,7 @@ const Footer = async () => {
 
                 <div className="">
                     <a
-                        href="https://github.com/cyrilkups/my-portfolio-web"
+                        href="https://github.com/cyrilkups/Portfolio"
                         target="_blank"
                         className="leading-none text-muted-foreground hover:underline hover:text-white"
                     >
