@@ -11,7 +11,7 @@ import {
     Linkedin,
     ChevronLeft,
     ChevronRight,
-    Globe,
+    Zap,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -133,7 +133,7 @@ export function TestimonialCarousel({ className }: TestimonialCarouselProps) {
             label: 'LinkedIn',
         },
         {
-            icon: Globe,
+            icon: Zap,
             url: currentTestimonial.websiteUrl,
             label: 'Website',
         },
