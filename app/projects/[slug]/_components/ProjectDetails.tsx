@@ -1,5 +1,6 @@
 'use client';
 import parse from 'html-react-parser';
+import Image from 'next/image';
 import ArrowAnimation from '@/components/ArrowAnimation';
 import TransitionLink from '@/components/TransitionLink';
 import { IProject } from '@/types';
@@ -242,9 +243,11 @@ const ProjectDetails = ({ project }: Props) => {
                             rel="noreferrer noopener"
                             className="group relative w-full bg-background-light cursor-pointer block overflow-hidden rounded-lg"
                         >
-                            <img
+                            <Image
                                 src={image}
                                 alt={project.title}
+                                width={800}
+                                height={600}
                                 className="w-full h-auto object-contain max-h-[600px]"
                             />
                             <div className="absolute top-4 right-4 bg-background/70 text-foreground size-12 inline-flex justify-center items-center transition-all opacity-0 hover:bg-primary hover:text-primary-foreground group-hover:opacity-100">
