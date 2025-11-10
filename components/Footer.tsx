@@ -1,20 +1,12 @@
 import { GENERAL_INFO, SOCIAL_LINKS } from '@/lib/data';
 import { Icon } from '@iconify/react';
 
-interface RepoStats {
-    stargazers_count: number;
-    forks_count: number;
-}
-
 const Footer = async () => {
-    await fetch(
-        'https://api.github.com/repos/cyrilkups/my-portfolio-web',
-        {
-            next: {
-                revalidate: 60 * 60, // 1 hour
-            },
+    await fetch('https://api.github.com/repos/cyrilkups/my-portfolio-web', {
+        next: {
+            revalidate: 60 * 60, // 1 hour
         },
-    );
+    });
 
     return (
         <footer className="text-center pb-5" id="contact">
