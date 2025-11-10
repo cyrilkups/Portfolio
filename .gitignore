@@ -41,7 +41,3 @@ next-env.d.ts
 
 # profile files
 public/logo/
-public/projects/images/
-public/projects/gif/
-public/projects/long/
-public/projects/thumbnail/
