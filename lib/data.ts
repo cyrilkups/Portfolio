@@ -71,6 +71,24 @@ export const MY_STACK = {
     ],
 };
 
+export const PRODUCTS_WORKED_ON = [
+    {
+        name: 'Campus Hustle',
+        logo: '/logo/App Logo/Campus Hustle App Logo.png',
+        url: 'https://www.campus-hustle.com/',
+    },
+    {
+        name: 'Georim',
+        logo: '/logo/App Logo/Georim App Logo.png',
+        url: 'https://www.eventsatgeorim.com/',
+    },
+    {
+        name: 'DocLink',
+        logo: '/logo/App Logo/DocLink App Logo.png',
+        url: 'https://doclink1.onrender.com/',
+    },
+];
+
 export const PROJECTS: IProject[] = [
     {
         title: 'Campus Hustle',

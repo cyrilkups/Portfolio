@@ -3,7 +3,9 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import React from 'react';
+import Image from 'next/image';
 import Button from '@/components/Button';
+import { PRODUCTS_WORKED_ON } from '@/lib/data';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -62,10 +64,78 @@ const AboutMe = () => {
                 </h2>
 
                 <p className="pb-3 border-b text-muted-foreground slide-up-and-fade">
+                    Products Worked On
+                </p>
+
+                <div className="mt-12 md:mt-16 pt-9 md:pt-0">
+                    <div className="flex gap-8 md:gap-16 justify-center items-start flex-wrap">
+                        {PRODUCTS_WORKED_ON.map((product, index) => {
+                            let hoverColor = '#3B82F6'; // Campus Hustle - primary color (blue)
+                            if (product.name === 'Georim') {
+                                hoverColor = '#333577';
+                            } else if (product.name === 'DocLink') {
+                                hoverColor = '#F26631';
+                            }
+
+                            return (
+                                <a
+                                    key={product.name}
+                                    href={product.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex flex-col items-center gap-4 slide-up-and-fade group cursor-pointer"
+                                    style={{
+                                        animationDelay: `${index * 0.15}s`,
+                                    }}
+                                >
+                                    <div
+                                        className="w-32 h-32 md:w-40 md:h-40 rounded-3xl overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
+                                        style={{
+                                            boxShadow: `0px 0px 0px rgba(0, 0, 0, 0)`,
+                                            transitionProperty:
+                                                'transform, box-shadow',
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.boxShadow = `0px 20px 40px ${hoverColor}40`;
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.boxShadow = `0px 0px 0px rgba(0, 0, 0, 0)`;
+                                        }}
+                                    >
+                                        <Image
+                                            src={product.logo}
+                                            alt={product.name}
+                                            width={160}
+                                            height={160}
+                                            className="w-full h-full object-cover"
+                                            priority
+                                        />
+                                    </div>
+                                    <p
+                                        className="text-base md:text-lg font-medium text-center transition-colors duration-300"
+                                        style={{ color: 'inherit' }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.color =
+                                                hoverColor;
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.color =
+                                                'inherit';
+                                        }}
+                                    >
+                                        {product.name}
+                                    </p>
+                                </a>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                <p className="pb-3 border-b text-muted-foreground slide-up-and-fade mt-20 md:mt-24">
                     This is me.
                 </p>
 
-                <div className="grid md:grid-cols-12 mt-9 md:mt-9 pt-9 md:pt-0">
+                <div className="grid md:grid-cols-12 mt-6 md:mt-6 pt-6 md:pt-0">
                     <div className="md:col-span-5">
                         <p className="text-5xl slide-up-and-fade">
                             Hi, I&apos;m Cyril.
