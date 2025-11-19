@@ -57,7 +57,7 @@ const AboutMe = () => {
             <div className="container" ref={container}>
                 <h2 className="text-4xl md:text-6xl font-thin mb-20 slide-up-and-fade">
                     I take a user-centered approach to design, making sure each
-                    project is thoughtfully crafted around the real needs and
+                    product is thoughtfully crafted around the real needs and
                     experiences of the people who will use it.
                 </h2>
 
