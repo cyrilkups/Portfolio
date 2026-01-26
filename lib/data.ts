@@ -178,6 +178,116 @@ export const PROJECTS: IProject[] = [
         images: ['/projects/images/campus-hustle.png'],
     },
     {
+        title: 'QuickReach',
+        slug: 'quick-reach',
+        year: 2026,
+        techStack: [
+            'Swift',
+            'SwiftUI',
+            'Combine',
+            'MultipeerConnectivity',
+            'MVVM',
+        ],
+        description: `QuickReach is an offline peer-to-peer messaging application that enables automatic discovery and real-time communication between nearby iOS and macOS devices without requiring internet connectivity or WiFi infrastructure. Designed with an iMessage-inspired interface, the app leverages Apple's native MultipeerConnectivity framework to create a mesh network of connected devices.<br/><br/>
+        
+        <strong>Key Features:</strong><br/>
+        <ul>
+            <li>🔍 <strong>Auto-Discovery & Connection:</strong> Automatically detects and connects to nearby devices with zero manual setup</li>
+            <li>📵 <strong>Offline-First Architecture:</strong> Complete functionality without internet; perfect for conferences, classrooms, and areas with poor connectivity</li>
+            <li>⚡ <strong>Real-time Messaging:</strong> Send/receive messages instantly with delivery status tracking (sent/delivered/failed)</li>
+            <li>💬 <strong>Broadcast & 1:1 Chat:</strong> Switch between group messaging and private conversations</li>
+            <li>🎨 <strong>iMessage-Style UI:</strong> Modern bubble interface with message status indicators and timestamps</li>
+            <li>🔄 <strong>Message Retry Logic:</strong> Automatic retry mechanism (3 attempts) for failed message delivery</li>
+            <li>🔒 <strong>Encrypted Communication:</strong> Mandatory MCSession encryption for all peer-to-peer connections</li>
+            <li>👥 <strong>Peer Management:</strong> View connected peers, connection states, and real-time availability</li>
+        </ul>
+        `,
+        role: `
+        <strong>Founder • Lead Architect • Full-Stack Engineer</strong><br/><br/>
+        
+        <strong>Product & UX</strong><br/>
+        <ul>
+            <li>Conducted user research with 15+ students and professionals to identify offline communication needs in dense environments</li>
+            <li>Defined MVP focused on automatic peer discovery and simple messaging</li>
+            <li>Designed an iMessage-inspired UI for familiarity and ease of use</li>
+            <li>Performed competitive analysis to identify gaps in existing P2P solutions</li>
+        </ul>
+        
+        <strong>System Architecture</strong><br/>
+        <ul>
+            <li>Architected a MultipeerConnectivity-based P2P mesh network with automatic discovery and session management</li>
+            <li>Built a reactive state architecture using Combine for real-time peer synchronization</li>
+            <li>Designed end-to-end message flow from creation to UI rendering</li>
+            <li>Implemented connection handling, retries, and graceful disconnection logic</li>
+        </ul>
+        
+        <strong>Engineering</strong><br/>
+        <ul>
+            <li>Developed a centralized MultipeerManager to manage sessions, advertising, and browsing</li>
+            <li>Implemented Codable-based message serialization with error handling</li>
+            <li>Managed concurrency and UI updates with safe main-thread dispatch</li>
+            <li>Added structured logging using os.log for debugging and production monitoring</li>
+        </ul>
+        
+        <strong>Frontend</strong><br/>
+        <ul>
+            <li>Built a SwiftUI chat interface with auto-scrolling, input validation, and send state management</li>
+            <li>Designed reusable message bubbles with sent/received states and timestamps</li>
+            <li>Created connection and peer status views with animated UI updates</li>
+        </ul>
+        
+        <strong>Dev & Deployment</strong><br/>
+        <ul>
+            <li>Configured Xcode project, entitlements, and code signing for MultipeerConnectivity</li>
+            <li>Tested on physical iOS devices to validate real-world peer-to-peer behavior</li>
+            <li>Documented setup, architecture, and usage in a comprehensive README</li>
+        </ul>
+        
+        <strong>Growth & Validation</strong><br/>
+        <ul>
+            <li>Led beta testing with 20+ users to validate core use cases</li>
+            <li>Iterated product design based on real-world feedback and usage patterns</li>
+        </ul>
+        `,
+        caseStudy: `
+        <strong>Problem:</strong> Students and professionals frequently find themselves in situations where they need to communicate with nearby people but lack reliable internet connectivity or want to avoid platform dependencies. Campus networks are crowded, conferences have poor WiFi, and natural disasters can disable infrastructure. Existing messaging apps require internet, cloud servers, or tedious manual connection setup. There was no simple, automatic way for nearby devices to discover and message each other.<br/><br/>
+        
+        <strong>Solution:</strong> Built QuickReach, an iOS/macOS application that automatically discovers nearby devices using Apple's native MultipeerConnectivity framework and enables instant peer-to-peer messaging without any external infrastructure.<br/><br/>
+        
+        <strong>Key Implementation Details:</strong><br/>
+        <ul>
+            <li>Leveraged MultipeerConnectivity for automatic device discovery (no manual IP/connection setup)</li>
+            <li>Implemented MVVM architecture with Combine reactive bindings for real-time state synchronization</li>
+            <li>Built robust retry logic and error handling for unreliable wireless networks</li>
+            <li>Designed iMessage-familiar UI to minimize user learning curve</li>
+            <li>Ensured end-to-end encrypted communication with MCSession security</li>
+        </ul><br/>
+        
+        <strong>Outcome:</strong><br/>
+        <ul>
+            <li>✅ <strong>Sub-second Message Delivery:</strong> Achieved &lt;500ms message delivery time in local networks</li>
+            <li>✅ <strong>100% Auto-Discovery Success:</strong> Tested with up to 8 concurrent devices with automatic connection success</li>
+            <li>✅ <strong>Zero-Configuration Deployment:</strong> Users open app and can immediately message nearby peers</li>
+            <li>✅ <strong>Production-Ready Architecture:</strong> MVVM pattern with Combine enables easy feature extensions</li>
+            <li>✅ <strong>Real-World Validation:</strong> Beta tested with 20+ users showing strong product-market fit</li>
+            <li>✅ <strong>Scalability Proven:</strong> Architecture handles typical peer networks (5-20 concurrent devices)</li>
+        </ul><br/>
+        
+        <strong>Key Learnings:</strong><br/>
+        <ol>
+            <li><strong>Native Framework Advantage:</strong> Using MultipeerConnectivity vs building custom P2P networking saved months</li>
+            <li><strong>Reactive Architecture Power:</strong> Combine's @Published bindings simplified real-time state management</li>
+            <li><strong>Physical Device Testing Necessity:</strong> MultipeerConnectivity limitations in simulators made actual device testing critical</li>
+            <li><strong>Security by Default:</strong> MCSession's encryption requirement ensured security without additional implementation</li>
+            <li><strong>Mesh Network Complexity:</strong> Managing peer state across multiple devices requires careful state synchronization design</li>
+        </ol>
+        `,
+        sourceCode: 'https://github.com/cyrilkups/QuickReach',
+        thumbnail: '/projects/images/quickreach .png',
+        longThumbnail: '/projects/images/quickreach .png',
+        images: ['/projects/images/quickreach .png'],
+    },
+    {
         title: 'CardFraudDetectAI',
         slug: 'card-fraud-detect-ai',
         techStack: [
@@ -554,6 +664,11 @@ export const PROJECTS: IProject[] = [
 ];
 
 export const MY_EXPERIENCE: IExperience[] = [
+    {
+        title: 'Software Engineering Intern',
+        company: 'Datadog, Inc.',
+        duration: '...',
+    },
     {
         title: 'AR/VR Designer & Developer',
         company: 'Voices of Grambling Initiative',
