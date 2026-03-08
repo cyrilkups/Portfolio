@@ -106,9 +106,12 @@ export default function OutsideWork() {
                         Interests
                     </h3>
 
-                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto">
+                    <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-4 px-4 md:-mx-6 md:px-6">
                         {interests.map((interest) => (
-                            <div key={interest.title} className="interest-card">
+                            <div
+                                key={interest.title}
+                                className="interest-card snap-start flex-shrink-0 w-[calc(50%-8px)] md:w-[calc(33.333%-11px)] lg:w-[calc(20%-13px)]"
+                            >
                                 <InterestCard
                                     title={interest.title}
                                     imageSrc={interest.imageSrc}

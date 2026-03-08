@@ -17,7 +17,7 @@ export default function InterestCard({
     return (
         <div className="group relative bg-[#1a1a1a] rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl">
             {/* Image/GIF Section - 60-70% of card height */}
-            <div className="h-40 md:h-48 lg:h-56 w-full bg-white flex items-center justify-center overflow-hidden">
+            <div className="h-32 md:h-36 w-full bg-white flex items-center justify-center overflow-hidden">
                 {isGif ? (
                     <img
                         src={imageSrc}

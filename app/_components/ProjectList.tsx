@@ -6,25 +6,66 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import Image from 'next/image';
-import React, { useRef, useState, MouseEvent } from 'react';
+import React, { useEffect, useRef, useState, MouseEvent } from 'react';
 import Project from './Project';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+const FEATURED_SLUGS = [
+    'campus-hustle',
+    'card-fraud-detect-ai',
+    'spec-linter',
+    'georim',
+    'braille-technology',
+];
+const HIDDEN_SLUGS = ['doc-link', 'stock-insight-engine', 'quick-reach'];
+const featuredProjects = FEATURED_SLUGS.map((slug) =>
+    PROJECTS.find((p) => p.slug === slug),
+).filter(Boolean) as typeof PROJECTS;
+const hiddenProjects = HIDDEN_SLUGS.map((slug) =>
+    PROJECTS.find((p) => p.slug === slug),
+).filter(Boolean) as typeof PROJECTS;
+const allDisplayed = [...featuredProjects, ...hiddenProjects];
 
 const ProjectList = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const projectListRef = useRef<HTMLDivElement>(null);
     const imageContainer = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLImageElement>(null);
+    const hiddenRef = useRef<HTMLDivElement>(null);
     const [selectedProject, setSelectedProject] = useState<string | null>(
-        PROJECTS[0].slug,
+        featuredProjects[0]?.slug ?? null,
     );
+    const [showMore, setShowMore] = useState(false);
 
-    // update imageRef.current href based on the cursor hover position
-    // also update image position
+    useEffect(() => {
+        if (hiddenRef.current) {
+            gsap.set(hiddenRef.current, { height: 0, opacity: 0 });
+        }
+    }, []);
+
+    const toggleShowMore = () => {
+        if (!hiddenRef.current) return;
+        if (!showMore) {
+            gsap.to(hiddenRef.current, {
+                height: 'auto',
+                opacity: 1,
+                duration: 0.65,
+                ease: 'power2.out',
+            });
+        } else {
+            gsap.to(hiddenRef.current, {
+                height: 0,
+                opacity: 0,
+                duration: 0.5,
+                ease: 'power2.in',
+            });
+        }
+        setShowMore((s) => !s);
+    };
+
     useGSAP(
         (context, contextSafe) => {
-            // show image on hover
             if (window.innerWidth < 768) {
                 setSelectedProject(null);
                 return;
@@ -45,7 +86,6 @@ const ProjectList = () => {
                     imageContainer.current.getBoundingClientRect();
                 const offsetTop = e.clientY - containerRect.y;
 
-                // if cursor is outside the container, hide the image
                 if (
                     containerRect.y > e.clientY ||
                     containerRect.bottom < e.clientY ||
@@ -114,7 +154,7 @@ const ProjectList = () => {
                             className="max-md:hidden absolute right-0 top-0 z-[1] pointer-events-none w-[280px] md:w-[350px] lg:w-[420px] xl:w-[500px] aspect-[1699/984] overflow-hidden opacity-0"
                             ref={imageContainer}
                         >
-                            {PROJECTS.map((project) => (
+                            {allDisplayed.map((project) => (
                                 <Image
                                     src={project.thumbnail}
                                     alt="Project"
@@ -139,15 +179,93 @@ const ProjectList = () => {
                         className="flex flex-col max-md:gap-10"
                         ref={projectListRef}
                     >
-                        {PROJECTS.map((project, index) => (
+                        {/* Featured projects — always visible */}
+                        {featuredProjects.map((project, i) => (
                             <Project
-                                index={index}
+                                key={project.slug}
+                                index={allDisplayed.indexOf(project)}
                                 project={project}
                                 selectedProject={selectedProject}
                                 onMouseEnter={handleMouseEnter}
-                                key={project.slug}
+                                badge={
+                                    project.slug === 'braille-technology'
+                                        ? 'Accessibility Feature'
+                                        : undefined
+                                }
+                                isFirst={i === 0}
+                                isLast={false}
                             />
                         ))}
+
+                        {/* Hidden projects — animated expand/collapse */}
+                        <div
+                            ref={hiddenRef}
+                            className="overflow-hidden flex flex-col max-md:gap-10"
+                        >
+                            {hiddenProjects.map((project, i) => (
+                                <Project
+                                    key={project.slug}
+                                    index={allDisplayed.indexOf(project)}
+                                    project={project}
+                                    selectedProject={selectedProject}
+                                    onMouseEnter={handleMouseEnter}
+                                    isFirst={false}
+                                    isLast={i === hiddenProjects.length - 1}
+                                />
+                            ))}
+                        </div>
+
+                        {/* View More / View Less toggle */}
+                        <div
+                            className={cn(
+                                'pt-8 flex items-center gap-5',
+                                !showMore && 'border-t border-border',
+                            )}
+                        >
+                            <button
+                                onClick={toggleShowMore}
+                                className="group flex items-center gap-3 text-sm font-medium tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
+                            >
+                                <span
+                                    className={cn(
+                                        'inline-flex items-center justify-center size-8 rounded-full border border-border text-foreground transition-transform duration-500',
+                                        { 'rotate-45': showMore },
+                                    )}
+                                >
+                                    <svg
+                                        width="12"
+                                        height="12"
+                                        viewBox="0 0 12 12"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <line
+                                            x1="6"
+                                            y1="0"
+                                            x2="6"
+                                            y2="12"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                        />
+                                        <line
+                                            x1="0"
+                                            y1="6"
+                                            x2="12"
+                                            y2="6"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                        />
+                                    </svg>
+                                </span>
+                                {showMore ? 'View Less' : 'View More'}
+                            </button>
+                            <span className="text-xs text-muted-foreground/50 tracking-wide">
+                                {hiddenProjects.length} more project
+                                {hiddenProjects.length !== 1 ? 's' : ''}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

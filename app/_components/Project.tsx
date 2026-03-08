@@ -11,6 +11,9 @@ interface Props {
     project: IProject;
     selectedProject: string | null;
     onMouseEnter: (_slug: string) => void;
+    badge?: string;
+    isFirst?: boolean;
+    isLast?: boolean;
 }
 
 /*
@@ -30,7 +33,15 @@ interface Props {
 
 gsap.registerPlugin(useGSAP);
 
-const Project = ({ index, project, selectedProject, onMouseEnter }: Props) => {
+const Project = ({
+    index,
+    project,
+    selectedProject,
+    onMouseEnter,
+    badge,
+    isFirst,
+    isLast,
+}: Props) => {
     const externalLinkSVGRef = useRef<SVGSVGElement>(null);
 
     const { context, contextSafe } = useGSAP(() => {}, {
@@ -103,7 +114,11 @@ const Project = ({ index, project, selectedProject, onMouseEnter }: Props) => {
     return (
         <TransitionLink
             href={`/projects/${project.slug}`}
-            className="project-item group leading-none py-5 md:border-b first:!pt-0 last:pb-0 last:border-none md:group-hover/projects:opacity-30 md:hover:!opacity-100 transition-all"
+            className={cn(
+                'project-item group leading-none py-5 md:border-b md:group-hover/projects:opacity-30 md:hover:!opacity-100 transition-all',
+                { '!pt-0': isFirst },
+                { 'pb-0 !border-b-0': isLast },
+            )}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
@@ -113,9 +128,7 @@ const Project = ({ index, project, selectedProject, onMouseEnter }: Props) => {
                     alt="Project"
                     width="300"
                     height="200"
-                    className={cn(
-                        'w-full object-cover mb-6 aspect-[3/2] object-top',
-                    )}
+                    className="w-full object-cover mb-6 aspect-[3/2] object-top"
                     key={project.slug}
                     loading="lazy"
                 />
@@ -124,31 +137,44 @@ const Project = ({ index, project, selectedProject, onMouseEnter }: Props) => {
                 <div className="font-anton text-muted-foreground">
                     _{(index + 1).toString().padStart(2, '0')}.
                 </div>
-                <div className="">
-                    <h4 className="text-4xl xs:text-6xl flex gap-4 font-anton transition-all duration-700 bg-gradient-to-r from-primary to-foreground from-[50%] to-[50%] bg-[length:200%] bg-right bg-clip-text text-transparent group-hover:bg-left">
-                        {project.title}
-                        <span className="text-foreground opacity-0 group-hover:opacity-100 transition-all">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="36"
-                                height="36"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                ref={externalLinkSVGRef}
-                            >
-                                <path
-                                    id="box"
-                                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                                ></path>
-                                <path id="arrow-line" d="M10 14 21 3"></path>
-                                <path id="arrow-curb" d="M15 3h6v6"></path>
-                            </svg>
-                        </span>
-                    </h4>
+                <div>
+                    <div className="flex flex-wrap items-end gap-x-4 gap-y-1">
+                        <h4 className="text-4xl xs:text-6xl flex gap-4 font-anton transition-all duration-700 bg-gradient-to-r from-primary to-foreground from-[50%] to-[50%] bg-[length:200%] bg-right bg-clip-text text-transparent group-hover:bg-left">
+                            {project.title}
+                            <span className="text-foreground opacity-0 group-hover:opacity-100 transition-all">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="36"
+                                    height="36"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    ref={externalLinkSVGRef}
+                                >
+                                    <path
+                                        id="box"
+                                        d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                                    ></path>
+                                    <path
+                                        id="arrow-line"
+                                        d="M10 14 21 3"
+                                    ></path>
+                                    <path
+                                        id="arrow-curb"
+                                        d="M15 3h6v6"
+                                    ></path>
+                                </svg>
+                            </span>
+                        </h4>
+                        {badge && (
+                            <span className="mb-1 shrink-0 inline-flex items-center px-2 py-[3px] text-[9px] font-medium tracking-widest uppercase rounded border border-white/10 text-white/35 bg-white/[0.03]">
+                                {badge}
+                            </span>
+                        )}
+                    </div>
                     <div className="mt-2 flex flex-wrap gap-3 text-muted-foreground text-xs">
                         {project.techStack
                             .slice(0, 3)
@@ -157,7 +183,7 @@ const Project = ({ index, project, selectedProject, onMouseEnter }: Props) => {
                                     className="gap-3 flex items-center"
                                     key={tech}
                                 >
-                                    <span className="">{tech}</span>
+                                    <span>{tech}</span>
                                     {idx !== stackArr.length - 1 && (
                                         <span className="inline-block size-2 rounded-full bg-background-light"></span>
                                     )}
