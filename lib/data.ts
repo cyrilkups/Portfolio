@@ -661,6 +661,97 @@ export const PROJECTS: IProject[] = [
             The platform allows users to move from raw data → interpretation → personal tracking in one interface, reducing research time and improving clarity when evaluating stocks. The experience encourages evidence-based decision making rather than emotional or momentum-driven choices.`,
         role: `Data Analyst & Developer`,
     },
+    {
+        title: 'Braille Technology',
+        slug: 'braille-technology',
+        year: 2026,
+        techStack: [
+            'Swift',
+            'SwiftUI',
+            'Core Haptics',
+            'Apple Intelligence',
+            'MVVM',
+            'Combine',
+            'XCTest',
+        ],
+        thumbnail: '/projects/images/braille-technology.png',
+        longThumbnail: '/projects/images/braille-technology.png',
+        images: ['/projects/images/braille-technology.png'],
+        liveUrl: '',
+        sourceCode: 'https://github.com/cyrilkups/BrailleTechnology',
+        description: `Braille Technology is an AI-powered tactile interface that converts structured digital meaning into haptic intelligence. It replaces visual screens with a braille-dominant interaction layer where every gesture, every notification, and every reply is driven entirely by touch — no vision or hearing required. Built for deafblind users. Designed for everyone.<br/><br/>
+
+        <strong>Key Features:</strong><br/>
+        <ul>
+            <li>🤲 <strong>Tactile Braille Reading:</strong> Drag across braille dots to read — each character fires a unique haptic burst based on its 6-dot bitmask pattern</li>
+            <li>⌨️ <strong>6-Dot Braille Keyboard:</strong> Compose and send replies entirely through touch with haptic success/failure feedback</li>
+            <li>🧠 <strong>AI Semantic Compression:</strong> On-device Apple Intelligence distills messages into tactile summaries preserving intent, urgency, and emotional tone</li>
+            <li>🚨 <strong>Fraud Alert Room:</strong> Dedicated response flow — Freeze Card / Call Bank / Ignore — operable without sight or sound</li>
+            <li>📵 <strong>Offline-First & Private:</strong> All processing on-device; no raw message content leaves the phone</li>
+            <li>⌚ <strong>Apple Watch Layer:</strong> Wrist-level urgency alerts with stress-aware escalation (roadmap)</li>
+        </ul><br/>
+
+        <strong>Technical Highlights:</strong><br/>
+        <ul>
+            <li><strong>310+ Deterministic Unit Tests:</strong> Full state machine coverage across 26 test files using SpyHapticService to assert exact haptic event sequences</li>
+            <li><strong>Generic State Machine:</strong> <code>SenseLayerState&lt;HapticService&gt;</code> enables test injection without any UI dependency</li>
+            <li><strong>Per-Character Tactile Fingerprints:</strong> Each braille cell drives a unique burst — pulse count, timing gaps, and per-dot-position intensity vary so every letter feels distinct</li>
+            <li><strong>Core Haptics Integration:</strong> CHHapticEngine for precise patterned haptic rendering; fallback to UIImpactFeedbackGenerator on older devices</li>
+            <li><strong>Dependency Injection Throughout:</strong> SendService, Scheduler, HapticService, and MessageRepository are all protocols with mock implementations</li>
+        </ul>
+        `,
+        role: `
+        <strong>Founder • Architect • iOS Engineer</strong><br/><br/>
+
+        <strong>Vision & Product:</strong><br/>
+        <ul>
+            <li>Defined the post-visual interaction paradigm and core UX principles (gesture-only, zero audio reliance, on-device privacy)</li>
+            <li>Designed the complete deafblind user journey from fraud alert detection → action in under 30 seconds</li>
+        </ul>
+
+        <strong>System Architecture:</strong><br/>
+        <ul>
+            <li>Designed a deterministic state machine generic over HapticService for full testability</li>
+            <li>Built the haptic language specification: per-character tactile fingerprints, urgency-weighted alert signatures, and navigation boundary bumps</li>
+            <li>Architected the AI compression pipeline: semantic summarization, urgency scoring, and tone detection — all on-device</li>
+        </ul>
+
+        <strong>Engineering:</strong><br/>
+        <ul>
+            <li>Implemented BrailleCellMapper, TactileEngine, CompressionService, DraftStore, and SendService</li>
+            <li>Built 310+ unit and integration tests using SpyHapticService and TestScheduler</li>
+            <li>Developed the 6-dot braille keyboard with commit/space/delete/send gesture flows</li>
+        </ul>
+
+        <strong>Testing & Quality:</strong><br/>
+        <ul>
+            <li>Verified all state transitions, haptic sequences, draft persistence, and urgent message queuing</li>
+            <li>Established contribution standards: spy assertions required for all state machine changes</li>
+        </ul>
+        `,
+        caseStudy: `
+        <strong>Problem:</strong> Deafblind users have no independent path to time-critical information. When a fraud alert arrives, they cannot see a banner, hear a ringtone, or scan a screen. They must depend on another person — surrendering autonomy at the exact moment it matters most. Today's accessibility tools (VoiceOver, external braille displays) translate overload; they do not solve it.<br/><br/>
+
+        <strong>Solution:</strong> A software-only tactile operating layer where every notification, message, and reply flows through a structured haptic language. AI compresses meaning before it reaches the user. The state machine ensures every interaction is gesture-driven and predictable. No vision required. No sound required. No hardware attachment required.<br/><br/>
+
+        <strong>Key Implementation Details:</strong><br/>
+        <ul>
+            <li>MultipeerConnectivity-style session model replaced by CHHapticEngine + gesture recognizer stack</li>
+            <li>Urgency scoring surfaces fraud alerts with a sharper, faster haptic signature than routine messages</li>
+            <li>60-second inactivity timer auto-saves drafts and returns to home — preventing lost work</li>
+            <li>Fraud response room hardcoded as a first-class state to minimize time-to-action under stress</li>
+        </ul><br/>
+
+        <strong>Outcome:</strong><br/>
+        <ul>
+            <li>✅ Detection → comprehension → decision → action → confirmation in under 30 seconds</li>
+            <li>✅ 5 gestures to read and reply (vs. 15+ with VoiceOver + keyboard)</li>
+            <li>✅ 310+ passing tests proving correctness of every state transition and haptic sequence</li>
+            <li>✅ Full two-way tactile communication: read, compose, and send without any sighted assistance</li>
+            <li>✅ On-device privacy architecture — no raw message content transmitted externally</li>
+        </ul>
+        `,
+    },
 ];
 
 export const MY_EXPERIENCE: IExperience[] = [
