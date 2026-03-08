@@ -1,6 +1,7 @@
 import AboutMe from './_components/AboutMe';
 import Banner from './_components/Banner';
 import Experiences from './_components/Experiences';
+import Education from './_components/Education';
 import Skills from './_components/Skills';
 import ProjectList from './_components/ProjectList';
 import OutsideWork from './_components/OutsideWork';
@@ -13,6 +14,9 @@ export default function Home() {
         <div className="page-">
             <Banner />
             <AboutMe />
+            <Education />
+            <Skills />
+            <Experiences />
             <section className="pb-section">
                 <div className="container">
                     <SectionTitle
@@ -22,8 +26,6 @@ export default function Home() {
                     <TestimonialCarousel />
                 </div>
             </section>
-            <Skills />
-            <Experiences />
             <ProjectList />
             <OutsideWork />
         </div>
