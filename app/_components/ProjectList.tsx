@@ -1,6 +1,6 @@
 'use client';
 import SectionTitle from '@/components/SectionTitle';
-import { PROJECTS } from '@/lib/data';
+import { FEATURED_PROJECTS, HIDDEN_PROJECTS } from '@/lib/portfolio-content';
 import { cn } from '@/lib/utils';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -11,20 +11,8 @@ import Project from './Project';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const FEATURED_SLUGS = [
-    'campus-hustle',
-    'card-fraud-detect-ai',
-    'spec-linter',
-    'georim',
-    'braille-technology',
-];
-const HIDDEN_SLUGS = ['doc-link', 'stock-insight-engine', 'quick-reach'];
-const featuredProjects = FEATURED_SLUGS.map((slug) =>
-    PROJECTS.find((p) => p.slug === slug),
-).filter(Boolean) as typeof PROJECTS;
-const hiddenProjects = HIDDEN_SLUGS.map((slug) =>
-    PROJECTS.find((p) => p.slug === slug),
-).filter(Boolean) as typeof PROJECTS;
+const featuredProjects = FEATURED_PROJECTS;
+const hiddenProjects = HIDDEN_PROJECTS;
 const allDisplayed = [...featuredProjects, ...hiddenProjects];
 
 const ProjectList = () => {

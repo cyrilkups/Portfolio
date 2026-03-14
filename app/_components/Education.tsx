@@ -1,6 +1,7 @@
 'use client';
 
 import SectionTitle from '@/components/SectionTitle';
+import { EDUCATION } from '@/lib/portfolio-content';
 import { cn } from '@/lib/utils';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -9,43 +10,6 @@ import Image from 'next/image';
 import { useRef, useState } from 'react';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-const EDUCATION = {
-    school: 'Grambling State University',
-    degree: 'B.S. Computer Science',
-    minor: 'B.A. Business Management',
-    gpa: '3.94 / 4.0',
-    location: 'Grambling, Louisiana',
-    logo: '/logo/gsu-logo.png',
-    campus: '/projects/images/gsu-campus.png',
-    coursework: [
-        'Data Structures & Algorithms',
-        'Database Systems',
-        'Operating Systems',
-        'Software Engineering',
-        'Calculus I & II',
-        'Intro to Artificial Intelligence',
-    ],
-    awards: [
-        'Presidential Academic Scholar',
-        'TMCF Citi Scholar',
-        'Strada Scholar',
-        'Innovation Award',
-        'Emerging Leaders Award',
-    ],
-    activities: [
-        {
-            name: 'National Society of Black Engineers',
-            role: 'Chapter Treasurer',
-        },
-        {
-            name: 'National Association of Black Accountants',
-            role: 'Director of Corporate Sponsorships',
-        },
-        { name: 'GSU LS-Lamp Scholar', role: 'Student Researcher' },
-        { name: 'ColorStack... and more', role: '' },
-    ],
-};
 
 export default function Education() {
     const containerRef = useRef<HTMLDivElement>(null);

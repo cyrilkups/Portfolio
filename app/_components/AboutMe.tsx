@@ -5,7 +5,11 @@ import { ScrollTrigger } from 'gsap/all';
 import React from 'react';
 import Image from 'next/image';
 import Button from '@/components/Button';
-import { PRODUCTS_WORKED_ON } from '@/lib/data';
+import {
+    ABOUT_ME_CONTENT,
+    GENERAL_INFO,
+    PRODUCTS_WORKED_ON,
+} from '@/lib/portfolio-content';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -58,9 +62,7 @@ const AboutMe = () => {
         <section className="pb-section" id="about-me">
             <div className="container" ref={container}>
                 <h2 className="text-4xl md:text-6xl font-thin mb-20 slide-up-and-fade">
-                    I take a user-centered approach to design, making sure each
-                    product is thoughtfully crafted around the real needs and
-                    experiences of the people who will use it.
+                    {ABOUT_ME_CONTENT.heading}
                 </h2>
 
                 <p className="pb-3 border-b text-muted-foreground slide-up-and-fade">
@@ -132,56 +134,48 @@ const AboutMe = () => {
                 </div>
 
                 <p className="pb-3 border-b text-muted-foreground slide-up-and-fade mt-20 md:mt-24">
-                    This is me.
+                    {ABOUT_ME_CONTENT.introLabel}
                 </p>
 
-                <div className="grid md:grid-cols-12 mt-6 md:mt-6 pt-6 md:pt-0">
+                <div
+                    className="grid md:grid-cols-12 mt-6 md:mt-6 pt-6 md:pt-0"
+                    id="about-me-intro"
+                >
                     <div className="md:col-span-5">
                         <p className="text-5xl slide-up-and-fade">
-                            Hi, I&apos;m Cyril.
+                            {ABOUT_ME_CONTENT.name}
                         </p>
                     </div>
                     <div className="md:col-span-7">
                         <div className="text-lg text-muted-foreground max-w-[450px]">
                             <p className="slide-up-and-fade">
-                                I&apos;m a software developer and technical
-                                product manager focused on building thoughtful,
-                                scalable solutions. I combine hands-on
-                                engineering with product strategy to turn
-                                complex problems into intuitive, high-impact
-                                experiences.
+                                {ABOUT_ME_CONTENT.summary}
                             </p>
                             <p className="mt-3 slide-up-and-fade">
-                                My approach blends user-centered design,
-                                technical execution, and business alignment. By
-                                prioritizing performance, accessibility, and
-                                clarity, I create solutions that are not only
-                                seamless for users, but also meaningful for
-                                stakeholders and sustainable for teams.
+                                {ABOUT_ME_CONTENT.approach}
                             </p>
                             <p className="mt-6 slide-up-and-fade">
-                                I guess you&apos;re already convinced -{' '}
+                                {ABOUT_ME_CONTENT.contactLead}{' '}
                                 <strong>let&apos;s get in touch.</strong>{' '}
                                 <a
-                                    href="mailto:cyrilkups95@gmail.com"
+                                    href={`mailto:${GENERAL_INFO.email}`}
                                     className="underline hover:text-foreground transition-colors"
                                 >
-                                    Shoot me an email
+                                    {ABOUT_ME_CONTENT.contactLinkLabel}
                                 </a>
                             </p>
                             <Button
                                 as="link"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href="https://drive.google.com/drive/folders/1l4zOKYSkwJYpdMHJ-vSNvVbXOQHtiWYj"
+                                href={ABOUT_ME_CONTENT.hireMeUrl}
                                 variant="primary"
                                 className="mt-6 slide-up-and-fade"
                             >
                                 Hire Me
                             </Button>
                             <p className="mt-8 slide-up-and-fade">
-                                Still wondering? Take a look through my
-                                portfolio and see for yourself below 👇
+                                {ABOUT_ME_CONTENT.footer}
                             </p>
                         </div>
                     </div>

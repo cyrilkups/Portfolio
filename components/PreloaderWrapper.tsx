@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import Preloader from './Preloader';
 
+export const PRELOADER_DURATION_MS = 3500;
+
 export default function PreloaderWrapper() {
     const [isReady, setIsReady] = useState(false);
 
@@ -9,7 +11,7 @@ export default function PreloaderWrapper() {
         // Simulate loading time - adjust as needed
         const timer = setTimeout(() => {
             setIsReady(true);
-        }, 3500); // 3.5 seconds to see the full animation
+        }, PRELOADER_DURATION_MS); // 3.5 seconds to see the full animation
 
         return () => clearTimeout(timer);
     }, []);

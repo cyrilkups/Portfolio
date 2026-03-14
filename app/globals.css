@@ -42,6 +42,10 @@
     * {
         @apply border-border !cursor-none;
     }
+    [data-native-cursor='true'],
+    [data-native-cursor='true'] * {
+        cursor: auto !important;
+    }
     body {
         @apply bg-background text-foreground font-roboto-flex;
     }

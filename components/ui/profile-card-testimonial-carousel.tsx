@@ -13,90 +13,8 @@ import {
     ChevronRight,
     Globe,
 } from 'lucide-react';
+import { SNAPSHOT_HIGHLIGHTS } from '@/lib/portfolio-content';
 import { cn } from '@/lib/utils';
-
-interface Testimonial {
-    name: string;
-    title: string;
-    description: string;
-    imageUrl: string;
-    githubUrl?: string;
-    twitterUrl?: string;
-    youtubeUrl?: string;
-    linkedinUrl?: string;
-    websiteUrl?: string;
-}
-
-const testimonials: Testimonial[] = [
-    {
-        name: 'Strada Scholar',
-        title: 'Strada Education Foundation',
-        description:
-            'Chosen as one of three students campus-wide to participate in a leadership and career advancement fellowship. Worked alongside industry mentors to design community impact initiatives and strengthen access to meaningful career opportunities for students.',
-        imageUrl: '/projects/images/Strada.JPG',
-        githubUrl: '#',
-        twitterUrl: '#',
-        youtubeUrl: 'https://youtu.be/Bd-e7JvvylQ?si=qLTtDmmn16xI9QPQ',
-        linkedinUrl:
-            'https://www.linkedin.com/posts/cyril-kups_gramblingstate-activity-7253144700348469248-c9eS?utm_source=share&utm_medium=member_desktop&rcm=ACoAADlbc1ABX_Smvfrl1bROAQpVgIhz-kRcZl4',
-    },
-    {
-        name: 'TMCF Scholar',
-        title: 'Thurgood Marshall College Fund',
-        description:
-            'Selected as a TMCF Scholar across three cycles. The program has shaped how I approach growth and career planning, and I now mentor other students through their own academic and fellowship journeys.',
-        imageUrl: '/projects/images/TMCF.PNG',
-        githubUrl: '#',
-        twitterUrl: '#',
-        youtubeUrl: '#',
-        linkedinUrl: '#',
-        websiteUrl: 'https://tmcf.org/photos/citi-hbcu-immersion-2025/',
-    },
-    {
-        name: 'Pitch Win',
-        title: 'Andrew Young Emerging Leaders Institute',
-        description:
-            'A moment after a pitch we worked hard on - celebrating the win and the people who helped build it. Growth that came from collaboration, not competition.',
-        imageUrl: '/projects/images/pitch.jpg',
-        githubUrl: '#',
-        twitterUrl: '#',
-        youtubeUrl: '#',
-        linkedinUrl: '#',
-    },
-    {
-        name: 'The Leader in Me',
-        title: 'Student Advocacy & Leadership',
-        description:
-            "One of 14 conferences where I've worked to support student wellbeing and push for more intentional, equitable initiatives.",
-        imageUrl: '/projects/images/handup.JPEG',
-        githubUrl: '#',
-        twitterUrl: '#',
-        youtubeUrl: '#',
-        linkedinUrl: '#',
-    },
-    {
-        name: 'The Thunderbolt',
-        title: 'I overthought it for like 10 minutes… then got on anyway.',
-        description: 'Sometimes the challenge is simply saying "okay, go."',
-        imageUrl: '/projects/images/rollercoaster.JPG',
-        githubUrl: '#',
-        twitterUrl: '#',
-        youtubeUrl: '#',
-        linkedinUrl: '#',
-    },
-    {
-        name: 'Founder',
-        title: 'ExposeToEmpower Initiative - STEM Workshop',
-        description:
-            'For many students, it was their first time ever seeing a mouse cursor move. We introduced computer basics, simple coding, and Arduino activities - opening a door to what technology could be for them.',
-        imageUrl: '/projects/images/teaching kids.jpg',
-        githubUrl: '#',
-        twitterUrl: '#',
-        youtubeUrl: '#',
-        linkedinUrl:
-            'https://www.linkedin.com/posts/cyril-kups_stemeducation-bridgingthedigitaldivide-futureready-activity-7212237297390370816-m9A8/?utm_medium=ios_app&rcm=ACoAADlbc1ABX_Smvfrl1bROAQpVgIhz-kRcZl4&utm_source=social_share_send&utm_campaign=copy_link',
-    },
-];
 
 export interface TestimonialCarouselProps {
     className?: string;
@@ -106,10 +24,12 @@ export function TestimonialCarousel({ className }: TestimonialCarouselProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const handleNext = () =>
-        setCurrentIndex((index) => (index + 1) % testimonials.length);
+        setCurrentIndex((index) => (index + 1) % SNAPSHOT_HIGHLIGHTS.length);
     const handlePrevious = () =>
         setCurrentIndex(
-            (index) => (index - 1 + testimonials.length) % testimonials.length,
+            (index) =>
+                (index - 1 + SNAPSHOT_HIGHLIGHTS.length) %
+                SNAPSHOT_HIGHLIGHTS.length,
         );
 
     // Auto-advance carousel every 5 seconds
@@ -121,7 +41,7 @@ export function TestimonialCarousel({ className }: TestimonialCarouselProps) {
         return () => clearInterval(interval);
     }, [currentIndex]);
 
-    const currentTestimonial = testimonials[currentIndex];
+    const currentTestimonial = SNAPSHOT_HIGHLIGHTS[currentIndex];
 
     const socialIcons = [
         { icon: Github, url: currentTestimonial.githubUrl, label: 'GitHub' },
@@ -325,7 +245,7 @@ export function TestimonialCarousel({ className }: TestimonialCarouselProps) {
 
                 {/* Dots */}
                 <div className="flex gap-2">
-                    {testimonials.map((_, testimonialIndex) => (
+                    {SNAPSHOT_HIGHLIGHTS.map((_, testimonialIndex) => (
                         <button
                             key={testimonialIndex}
                             onClick={() => setCurrentIndex(testimonialIndex)}

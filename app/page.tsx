@@ -15,9 +15,9 @@ export default function Home() {
             <Banner />
             <AboutMe />
             <Education />
-            <Skills />
             <Experiences />
-            <section className="pb-section">
+            <Skills />
+            <section className="pb-section" id="snapshot">
                 <div className="container">
                     <SectionTitle
                         title="CYRIL IN A SNAPSHOT"

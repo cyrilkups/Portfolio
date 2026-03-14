@@ -11,6 +11,8 @@ import Navbar from '@/components/Navbar';
 import CustomCursor from '@/components/CustomCursor';
 import PreloaderWrapper from '../components/PreloaderWrapper';
 import StickyEmail from './_components/StickyEmail';
+import PortfolioChat from '@/components/portfolio-chat/PortfolioChat';
+import { PortfolioChatProvider } from '@/components/portfolio-chat/PortfolioChatProvider';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import Script from 'next/script';
 
@@ -57,14 +59,15 @@ export default function RootLayout({
             <body
                 className={`${antonFont.variable} ${robotoFlex.variable} antialiased`}
             >
-                <ReactLenis
-                    root
-                    options={{
-                        lerp: 0.1,
-                        duration: 1.4,
-                    }}
-                >
-                    {/* <a
+                <PortfolioChatProvider>
+                    <ReactLenis
+                        root
+                        options={{
+                            lerp: 0.1,
+                            duration: 1.4,
+                        }}
+                    >
+                        {/* <a
                         href="https://forms.gle/t73XYJgWD5cJNr6e8"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -73,16 +76,18 @@ export default function RootLayout({
                         Frontend dev? I&apos;ll help you polish your resume —
                         completely free.
                     </a> */}
-                    <Navbar />
-                    <main>{children}</main>
-                    <Footer />
+                        <Navbar />
+                        <main>{children}</main>
+                        <Footer />
 
-                    <CustomCursor />
-                    <PreloaderWrapper />
-                    <ScrollProgressIndicator />
-                    <ParticleBackground />
-                    <StickyEmail />
-                </ReactLenis>
+                        <CustomCursor />
+                        <PreloaderWrapper />
+                        <ScrollProgressIndicator />
+                        <ParticleBackground />
+                        <StickyEmail />
+                        <PortfolioChat />
+                    </ReactLenis>
+                </PortfolioChatProvider>
             </body>
         </html>
     );

@@ -3,51 +3,21 @@
 import SectionTitle from '@/components/SectionTitle';
 import InterestCard from '@/components/InterestCard';
 import { Trophy, Waves, Music, Cpu, Coffee, Plane } from 'lucide-react';
+import { OUTSIDE_WORK_INTERESTS } from '@/lib/portfolio-content';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import React from 'react';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-const interests = [
-    {
-        title: 'Volleyball',
-        imageSrc: '/projects/gif/volleyball_6450964.gif',
-        icon: Trophy,
-        isGif: true,
-    },
-    {
-        title: 'Swimming',
-        imageSrc: '/projects/gif/swimming_17091781.gif',
-        icon: Waves,
-        isGif: true,
-    },
-    {
-        title: 'Beatboxing',
-        imageSrc: '/projects/gif/singer_9538514.gif',
-        icon: Music,
-        isGif: true,
-    },
-    {
-        title: 'Robotics',
-        imageSrc: '/projects/gif/robot_9066225.gif',
-        icon: Cpu,
-        isGif: true,
-    },
-    {
-        title: 'Sketching',
-        imageSrc: '/projects/gif/drawing_13936733.gif',
-        icon: Coffee,
-        isGif: true,
-    },
-    {
-        title: 'Traveling',
-        imageSrc: '/projects/gif/travel_8112689.gif',
-        icon: Plane,
-        isGif: true,
-    },
-];
+const ICONS = {
+    trophy: Trophy,
+    waves: Waves,
+    music: Music,
+    cpu: Cpu,
+    coffee: Coffee,
+    plane: Plane,
+};
 
 export default function OutsideWork() {
     const containerRef = React.useRef<HTMLDivElement>(null);
@@ -107,7 +77,7 @@ export default function OutsideWork() {
                     </h3>
 
                     <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-4 px-4 md:-mx-6 md:px-6">
-                        {interests.map((interest) => (
+                        {OUTSIDE_WORK_INTERESTS.map((interest) => (
                             <div
                                 key={interest.title}
                                 className="interest-card snap-start flex-shrink-0 w-[calc(50%-8px)] md:w-[calc(33.333%-11px)] lg:w-[calc(20%-13px)]"
@@ -115,7 +85,7 @@ export default function OutsideWork() {
                                 <InterestCard
                                     title={interest.title}
                                     imageSrc={interest.imageSrc}
-                                    footerIcon={interest.icon}
+                                    footerIcon={ICONS[interest.iconKey]}
                                     isGif={interest.isGif}
                                 />
                             </div>

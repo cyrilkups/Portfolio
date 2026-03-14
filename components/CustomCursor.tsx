@@ -15,13 +15,17 @@ const CustomCursor = () => {
             if (!svgRef.current) return;
 
             const { clientX, clientY } = e;
+            const target = e.target as HTMLElement | null;
+            const isNativeCursorZone = Boolean(
+                target?.closest("[data-native-cursor='true']"),
+            );
 
             gsap.to(svgRef.current, {
                 x: clientX,
                 y: clientY,
                 ease: 'power2.out',
                 duration: 0.25,
-                opacity: 1,
+                opacity: isNativeCursorZone ? 0 : 1,
             });
         }) as any;
 
@@ -37,7 +41,7 @@ const CustomCursor = () => {
             width="27"
             height="30"
             viewBox="0 0 27 30"
-            className="hidden md:block fixed top-0 left-0 opacity-0 z-[50] pointer-events-none" // -translate-x-1/2 -translate-y-1/2
+            className="hidden md:block fixed top-0 left-0 opacity-0 z-[70] pointer-events-none" // -translate-x-1/2 -translate-y-1/2
             fill="none"
             id="cursor"
             strokeWidth="2"

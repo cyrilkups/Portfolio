@@ -17,17 +17,16 @@ const Experiences = () => {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: 'top 60%',
-                    end: 'bottom 50%',
+                    start: 'top bottom',
+                    end: 'top 80%',
                     toggleActions: 'restart none none reverse',
                     scrub: 1,
                 },
             });
 
-            tl.from('.experience-item', {
-                y: 50,
+            tl.from(containerRef.current, {
+                y: 150,
                 opacity: 0,
-                stagger: 0.3,
             });
         },
         { scope: containerRef },
@@ -53,7 +52,7 @@ const Experiences = () => {
     );
 
     return (
-        <section className="py-section" id="my-experience">
+        <section className="pt-12 md:pt-20 pb-section" id="my-experience">
             <div className="container" ref={containerRef}>
                 <SectionTitle title="My Experience" />
 

@@ -36,3 +36,30 @@ export interface IExperience {
     duration: string;
     url?: string;
 }
+
+export interface ChatReference {
+    label: string;
+    href: string;
+}
+
+export interface ChatMessage {
+    id: string;
+    role: 'assistant' | 'user';
+    content: string;
+    references?: ChatReference[];
+    fallbackHref?: string;
+    fallbackLabel?: string;
+}
+
+export interface PendingAction {
+    type: 'compose_email';
+}
+
+export interface PortfolioKnowledgeEntry {
+    id: string;
+    title: string;
+    plainText: string;
+    keywords: string[];
+    label: string;
+    href: string;
+}

@@ -18,6 +18,14 @@ interface BlockStyle {
     delay: number;
 }
 
+const CODE_LINES = [
+    '# python',
+    'print("Hello, Cyril Ofori Kupualor")',
+    '',
+    '// java',
+    'System.out.println("Hello, Cyril Ofori Kupualor");',
+];
+
 const Preloader: React.FC<PreloaderProps> = ({
     variant = 'ide',
     isReady = false,
@@ -28,14 +36,6 @@ const Preloader: React.FC<PreloaderProps> = ({
     const [showCursor, setShowCursor] = useState(true);
     const [blockStyles, setBlockStyles] = useState<BlockStyle[]>([]);
     const [mounted, setMounted] = useState(false);
-
-    const codeLines = [
-        '# python',
-        'print("Hello, Cyril Ofori Kupualor")',
-        '',
-        '// java',
-        'System.out.println("Hello, Cyril Ofori Kupualor");',
-    ];
 
     // Initialize random block styles on client only
     useEffect(() => {
@@ -56,8 +56,8 @@ const Preloader: React.FC<PreloaderProps> = ({
         if (variant !== 'ide' || isReady) return;
 
         const typingInterval = setInterval(() => {
-            if (currentLine < codeLines.length) {
-                const currentLineText = codeLines[currentLine];
+            if (currentLine < CODE_LINES.length) {
+                const currentLineText = CODE_LINES[currentLine];
                 if (currentChar < currentLineText.length) {
                     setCurrentChar(currentChar + 1);
                 } else {
@@ -68,7 +68,7 @@ const Preloader: React.FC<PreloaderProps> = ({
         }, 50);
 
         return () => clearInterval(typingInterval);
-    }, [currentLine, currentChar, variant, isReady, codeLines]);
+    }, [currentLine, currentChar, variant, isReady]);
 
     // Blinking cursor
     useEffect(() => {
@@ -301,7 +301,7 @@ const Preloader: React.FC<PreloaderProps> = ({
 
                                             {/* Code Editor with Lego-style line numbers */}
                                             <div className="p-8 font-mono text-base md:text-lg bg-gray-900">
-                                                {codeLines.map(
+                                                {CODE_LINES.map(
                                                     (line, lineIndex) => (
                                                         <div
                                                             key={lineIndex}

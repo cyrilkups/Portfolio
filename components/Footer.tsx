@@ -1,12 +1,16 @@
-import { GENERAL_INFO, SOCIAL_LINKS } from '@/lib/data';
+import { GENERAL_INFO, SOCIAL_LINKS } from '@/lib/portfolio-content';
 import { Icon } from '@iconify/react';
 
 const Footer = async () => {
-    await fetch('https://api.github.com/repos/cyrilkups/my-portfolio-web', {
-        next: {
-            revalidate: 60 * 60, // 1 hour
-        },
-    });
+    try {
+        await fetch('https://api.github.com/repos/cyrilkups/my-portfolio-web', {
+            next: {
+                revalidate: 60 * 60, // 1 hour
+            },
+        });
+    } catch {
+        // Allow static generation to succeed when GitHub is unreachable.
+    }
 
     return (
         <footer className="text-center pb-5" id="contact">
