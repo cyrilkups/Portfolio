@@ -15,6 +15,7 @@ export const ABOUT_ME_CONTENT = {
         'I take a user-centered approach to design, making sure each product is thoughtfully crafted around the real needs and experiences of the people who will use it.',
     introLabel: 'This is me.',
     name: "Hi, I'm Cyril.",
+    fullName: 'Cyril Ofori Kupualor',
     summary:
         "I'm a software developer and technical product manager focused on building thoughtful, scalable solutions. I combine hands-on engineering with product strategy to turn complex problems into intuitive, high-impact experiences.",
     approach:
@@ -76,6 +77,23 @@ export interface SnapshotHighlight {
     websiteUrl?: string;
 }
 
+export type JourneyTag =
+    | 'fellowship'
+    | 'scholarship'
+    | 'pitch'
+    | 'leadership'
+    | 'community';
+
+export interface JourneyItem {
+    stat: string;
+    name: string;
+    organization: string;
+    tag: JourneyTag;
+    description: string;
+    imageUrl: string;
+    link?: string;
+}
+
 export const SNAPSHOT_HIGHLIGHTS: SnapshotHighlight[] = [
     {
         name: 'Strada Scholar',
@@ -123,6 +141,57 @@ export const SNAPSHOT_HIGHLIGHTS: SnapshotHighlight[] = [
         imageUrl: '/projects/images/teaching kids.jpg',
         linkedinUrl:
             'https://www.linkedin.com/posts/cyril-kups_stemeducation-bridgingthedigitaldivide-futureready-activity-7212237297390370816-m9A8/?utm_medium=ios_app&rcm=ACoAADlbc1ABX_Smvfrl1bROAQpVgIhz-kRcZl4&utm_source=social_share_send&utm_campaign=copy_link',
+    },
+];
+
+export const JOURNEY_ITEMS: JourneyItem[] = [
+    {
+        stat: '1 of 3',
+        name: 'Strada Scholar',
+        organization: 'Strada Education Foundation',
+        tag: 'fellowship',
+        description:
+            'Chosen as one of three students campus-wide to join a leadership and career advancement fellowship focused on community impact and future-ready growth.',
+        imageUrl: '/projects/images/Strada.JPG',
+        link: 'https://www.linkedin.com/posts/cyril-kups_gramblingstate-activity-7253144700348469248-c9eS?utm_source=share&utm_medium=member_desktop&rcm=ACoAADlbc1ABX_Smvfrl1bROAQpVgIhz-kRcZl4',
+    },
+    {
+        stat: '3x',
+        name: 'TMCF Scholar',
+        organization: 'Thurgood Marshall College Fund',
+        tag: 'scholarship',
+        description:
+            'Selected across three scholarship cycles, a milestone that sharpened how I think about growth, opportunity, and helping other students navigate their own path.',
+        imageUrl: '/projects/images/TMCF.PNG',
+        link: 'https://tmcf.org/photos/citi-hbcu-immersion-2025/',
+    },
+    {
+        stat: 'Pitch Win',
+        name: 'Emerging Leaders Pitch',
+        organization: 'Andrew Young Emerging Leaders Institute',
+        tag: 'pitch',
+        description:
+            'A team win that came from story, strategy, and execution. It reminded me that strong products earn attention when the vision and the build meet in the middle.',
+        imageUrl: '/projects/images/pitch.jpg',
+    },
+    {
+        stat: '14x',
+        name: 'Student Advocacy',
+        organization: 'Leadership & Wellbeing Conferences',
+        tag: 'leadership',
+        description:
+            "Across 14 conferences, I've helped push for more intentional student wellbeing, stronger support systems, and more equitable opportunities on campus.",
+        imageUrl: '/projects/images/handup.JPEG',
+    },
+    {
+        stat: 'Founder',
+        name: 'ExposeToEmpower',
+        organization: 'STEM Workshop Initiative',
+        tag: 'community',
+        description:
+            'I created hands-on STEM workshop experiences for students who were seeing basic computer interaction for the first time, turning curiosity into confidence.',
+        imageUrl: '/projects/images/teaching kids.jpg',
+        link: 'https://www.linkedin.com/posts/cyril-kups_stemeducation-bridgingthedigitaldivide-futureready-activity-7212237297390370816-m9A8/?utm_medium=ios_app&rcm=ACoAADlbc1ABX_Smvfrl1bROAQpVgIhz-kRcZl4&utm_source=social_share_send&utm_campaign=copy_link',
     },
 ];
 

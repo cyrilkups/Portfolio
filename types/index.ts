@@ -42,17 +42,44 @@ export interface ChatReference {
     href: string;
 }
 
+export type ChatActionKind =
+    | 'scroll_to_section'
+    | 'open_project'
+    | 'open_external'
+    | 'compose_email';
+
+export type ChatResponseScope = 'portfolio' | 'general';
+
+export interface ChatAction {
+    kind: ChatActionKind;
+    label: string;
+    href?: string;
+    sectionId?: string;
+    projectSlug?: string;
+}
+
 export interface ChatMessage {
     id: string;
     role: 'assistant' | 'user';
     content: string;
     references?: ChatReference[];
+    actions?: ChatAction[];
+    followUps?: string[];
+    scope?: ChatResponseScope;
     fallbackHref?: string;
     fallbackLabel?: string;
 }
 
 export interface PendingAction {
     type: 'compose_email';
+}
+
+export interface PortfolioChatResponse {
+    answer: string;
+    references: ChatReference[];
+    actions: ChatAction[];
+    followUps: string[];
+    scope: ChatResponseScope;
 }
 
 export interface PortfolioKnowledgeEntry {

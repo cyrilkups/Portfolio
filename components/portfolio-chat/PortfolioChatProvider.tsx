@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname, useRouter } from 'next/navigation';
 import {
     createContext,
     ReactNode,
@@ -17,9 +18,16 @@ import {
     getAssistantUnavailableAnswer,
     looksLikePortfolioQuestion,
 } from '@/lib/portfolio-knowledge';
-import { ChatMessage, PendingAction } from '@/types';
+import {
+    ChatAction,
+    ChatMessage,
+    ChatResponseScope,
+    PendingAction,
+    PortfolioChatResponse,
+} from '@/types';
 
 interface PortfolioChatContextValue {
+    executeAction: (action: ChatAction) => void;
     isLoading: boolean;
     isOpen: boolean;
     messages: ChatMessage[];
@@ -33,6 +41,13 @@ const MAX_STORED_MESSAGES = 20;
 const MAX_API_MESSAGES = 10;
 const MIN_EMAIL_BODY_LENGTH = 5;
 const DEFAULT_FALLBACK_LABEL = 'Open draft';
+const COMPOSE_EMAIL_PROMPT = 'Sure. What would you like the email to say?';
+const VALID_CHAT_ACTION_KINDS = new Set<ChatAction['kind']>([
+    'scroll_to_section',
+    'open_project',
+    'open_external',
+    'compose_email',
+]);
 
 const PortfolioChatContext = createContext<PortfolioChatContextValue | null>(
     null,
@@ -71,6 +86,27 @@ function isValidReference(reference: unknown) {
     return (
         typeof candidate.label === 'string' && typeof candidate.href === 'string'
     );
+}
+
+function isValidAction(action: unknown): action is ChatAction {
+    if (!action || typeof action !== 'object') {
+        return false;
+    }
+
+    const candidate = action as Record<string, unknown>;
+    return (
+        typeof candidate.label === 'string' &&
+        VALID_CHAT_ACTION_KINDS.has(candidate.kind as ChatAction['kind']) &&
+        (candidate.href === undefined || typeof candidate.href === 'string') &&
+        (candidate.sectionId === undefined ||
+            typeof candidate.sectionId === 'string') &&
+        (candidate.projectSlug === undefined ||
+            typeof candidate.projectSlug === 'string')
+    );
+}
+
+function isValidScope(scope: unknown): scope is ChatResponseScope {
+    return scope === 'portfolio' || scope === 'general';
 }
 
 function trimMessageContent(content: string) {
@@ -112,12 +148,25 @@ export function PortfolioChatProvider({
 }: {
     children: ReactNode;
 }) {
+    const pathname = usePathname();
+    const router = useRouter();
     const [messages, setMessages] = useState<ChatMessage[]>([getWelcomeMessage()]);
     const [pendingAction, setPendingAction] = useState<PendingAction | null>(
         null,
     );
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+    const startComposeEmailFlow = useCallback((userMessage?: ChatMessage) => {
+        setPendingAction({ type: 'compose_email' });
+        setMessages((previous) =>
+            appendMessages(
+                previous,
+                ...(userMessage ? [userMessage] : []),
+                createMessage('assistant', COMPOSE_EMAIL_PROMPT),
+            ),
+        );
+    }, []);
 
     const submitQuestion = useCallback(async (content: string) => {
         const trimmedContent = trimMessageContent(content);
@@ -152,10 +201,7 @@ export function PortfolioChatProvider({
                 }),
             });
 
-            const data = (await response.json()) as Partial<{
-                answer: string;
-                references: Array<{ label: string; href: string }>;
-            }>;
+            const data = (await response.json()) as Partial<PortfolioChatResponse>;
 
             const answer =
                 typeof data.answer === 'string' && data.answer.trim()
@@ -164,11 +210,29 @@ export function PortfolioChatProvider({
             const references = Array.isArray(data.references)
                 ? data.references.filter(isValidReference)
                 : [];
+            const actions = Array.isArray(data.actions)
+                ? data.actions.filter(isValidAction)
+                : [];
+            const followUps = Array.isArray(data.followUps)
+                ? data.followUps
+                      .filter(
+                          (followUp): followUp is string =>
+                              typeof followUp === 'string' &&
+                              followUp.trim().length > 0,
+                      )
+                      .map((followUp) => followUp.trim())
+                : [];
+            const scope = isValidScope(data.scope) ? data.scope : 'portfolio';
 
             setMessages((previous) =>
                 appendMessages(
                     previous,
-                    createMessage('assistant', answer, { references }),
+                    createMessage('assistant', answer, {
+                        actions,
+                        followUps,
+                        references,
+                        scope,
+                    }),
                 ),
             );
         } catch {
@@ -182,6 +246,66 @@ export function PortfolioChatProvider({
             setIsLoading(false);
         }
     }, [messages]);
+
+    const executeAction = useCallback(
+        (action: ChatAction) => {
+            if (action.kind === 'compose_email') {
+                if (pendingAction?.type === 'compose_email') {
+                    return;
+                }
+
+                startComposeEmailFlow();
+                return;
+            }
+
+            if (action.kind === 'open_external') {
+                if (!action.href) {
+                    return;
+                }
+
+                window.open(action.href, '_blank', 'noopener,noreferrer');
+                return;
+            }
+
+            if (action.kind === 'open_project') {
+                if (action.href) {
+                    router.push(action.href);
+                    return;
+                }
+
+                if (action.projectSlug) {
+                    router.push(`/projects/${action.projectSlug}`);
+                }
+
+                return;
+            }
+
+            if (action.kind === 'scroll_to_section') {
+                const href =
+                    action.href ??
+                    (action.sectionId ? `/#${action.sectionId}` : undefined);
+
+                if (!href) {
+                    return;
+                }
+
+                if (pathname === '/' && action.sectionId) {
+                    const element = document.getElementById(action.sectionId);
+                    if (element) {
+                        window.history.replaceState(null, '', href);
+                        element.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                        });
+                        return;
+                    }
+                }
+
+                router.push(href);
+            }
+        },
+        [pathname, pendingAction, router, startComposeEmailFlow],
+    );
 
     const submitMessage = useCallback(
         async (content: string) => {
@@ -264,27 +388,18 @@ export function PortfolioChatProvider({
             }
 
             if (detectEmailIntent(trimmedContent)) {
-                setPendingAction({ type: 'compose_email' });
-                setMessages((previous) =>
-                    appendMessages(
-                        previous,
-                        createMessage('user', trimmedContent),
-                        createMessage(
-                            'assistant',
-                            'Sure. What would you like the email to say?',
-                        ),
-                    ),
-                );
+                startComposeEmailFlow(createMessage('user', trimmedContent));
                 return;
             }
 
             await submitQuestion(trimmedContent);
         },
-        [isLoading, pendingAction, submitQuestion],
+        [isLoading, pendingAction, startComposeEmailFlow, submitQuestion],
     );
 
     const value = useMemo(
         () => ({
+            executeAction,
             isLoading,
             isOpen,
             messages,
@@ -293,7 +408,14 @@ export function PortfolioChatProvider({
             submitMessage,
             submitSuggestedPrompt: submitMessage,
         }),
-        [isLoading, isOpen, messages, pendingAction, submitMessage],
+        [
+            executeAction,
+            isLoading,
+            isOpen,
+            messages,
+            pendingAction,
+            submitMessage,
+        ],
     );
 
     return (

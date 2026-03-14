@@ -44,6 +44,7 @@ function getFocusableElements(container: HTMLElement) {
 
 export default function PortfolioChat() {
     const {
+        executeAction,
         isLoading,
         isOpen,
         messages,
@@ -291,6 +292,12 @@ export default function PortfolioChat() {
                                                     : 'received'
                                             }
                                         >
+                                            {message.role === 'assistant' &&
+                                            message.scope === 'general' ? (
+                                                <span className="mb-2 block w-fit rounded-full border border-border/70 bg-background/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                                                    General guidance
+                                                </span>
+                                            ) : null}
                                             {message.content}
                                         </ChatBubbleMessage>
 
@@ -308,6 +315,50 @@ export default function PortfolioChat() {
                                                         key={`${message.id}-${reference.href}`}
                                                         reference={reference}
                                                     />
+                                                ))}
+                                            </div>
+                                        ) : null}
+
+                                        {message.actions?.length &&
+                                        message.role === 'assistant' ? (
+                                            <div
+                                                className="flex flex-wrap gap-2"
+                                                aria-label="Suggested actions"
+                                            >
+                                                {message.actions.map((action) => (
+                                                    <Button
+                                                        key={`${message.id}-${action.kind}-${action.href ?? action.sectionId ?? action.projectSlug ?? action.label}`}
+                                                        type="button"
+                                                        size="sm"
+                                                        variant="outline"
+                                                        className="h-auto rounded-full px-3 py-1 text-xs"
+                                                        onClick={() => executeAction(action)}
+                                                        disabled={isLoading}
+                                                    >
+                                                        {action.label}
+                                                    </Button>
+                                                ))}
+                                            </div>
+                                        ) : null}
+
+                                        {message.followUps?.length &&
+                                        message.role === 'assistant' ? (
+                                            <div
+                                                className="flex flex-wrap gap-2"
+                                                aria-label="Suggested follow-up questions"
+                                            >
+                                                {message.followUps.map((followUp) => (
+                                                    <button
+                                                        key={`${message.id}-${followUp}`}
+                                                        type="button"
+                                                        onClick={() =>
+                                                            submitSuggestedPrompt(followUp)
+                                                        }
+                                                        className="rounded-full border border-transparent bg-primary/10 px-3 py-1 text-xs text-foreground transition-colors hover:border-primary/30 hover:bg-primary/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                                                        disabled={isLoading}
+                                                    >
+                                                        {followUp}
+                                                    </button>
                                                 ))}
                                             </div>
                                         ) : null}

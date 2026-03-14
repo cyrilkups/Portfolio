@@ -1,6 +1,7 @@
 import { IProject, IExperience } from '@/types';
 
 export const GENERAL_INFO = {
+    fullName: 'Cyril Ofori Kupualor',
     email: 'cyrilkups95@gmail.com',
 
     emailSubject: "Let's collaborate on a project",
