@@ -80,6 +80,7 @@ export interface SnapshotHighlight {
 export type JourneyTag =
     | 'fellowship'
     | 'scholarship'
+    | 'hackathon'
     | 'pitch'
     | 'leadership'
     | 'community';
@@ -146,14 +147,31 @@ export const SNAPSHOT_HIGHLIGHTS: SnapshotHighlight[] = [
 
 export const JOURNEY_ITEMS: JourneyItem[] = [
     {
-        stat: '1 of 3',
-        name: 'Strada Scholar',
-        organization: 'Strada Education Foundation',
-        tag: 'fellowship',
+        stat: '36 Hr',
+        name: 'HackPrinceton',
+        organization: 'Princeton University',
+        tag: 'hackathon',
         description:
-            'Chosen as one of three students campus-wide to join a leadership and career advancement fellowship focused on community impact and future-ready growth.',
-        imageUrl: '/projects/images/Strada.JPG',
-        link: 'https://www.linkedin.com/posts/cyril-kups_gramblingstate-activity-7253144700348469248-c9eS?utm_source=share&utm_medium=member_desktop&rcm=ACoAADlbc1ABX_Smvfrl1bROAQpVgIhz-kRcZl4',
+            "Joined Princeton University's global 36-hour hackathon to build fast, solve under pressure, and sharpen ideas with other makers.",
+        imageUrl: '/projects/images/my journey/Princeton Hacks.jpg',
+    },
+    {
+        stat: 'Pitch Day',
+        name: 'Mastercard Data Challenge',
+        organization: 'AUC Data Science Club',
+        tag: 'pitch',
+        description:
+            'Presented a data-driven story live, translating analysis into clear findings people could immediately act on.',
+        imageUrl: '/projects/images/my journey/mastercard pitch.jpg',
+    },
+    {
+        stat: 'JPMC',
+        name: 'Data for Good Hackathon',
+        organization: 'JPMorganChase',
+        tag: 'hackathon',
+        description:
+            "Applied data skills to a community-impact challenge through JPMorganChase's Data for Good Hackathon.",
+        imageUrl: '/projects/images/my journey/JPMC Hackathon.jpeg',
     },
     {
         stat: '3x',
@@ -161,37 +179,18 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
         organization: 'Thurgood Marshall College Fund',
         tag: 'scholarship',
         description:
-            'Selected across three scholarship cycles, a milestone that sharpened how I think about growth, opportunity, and helping other students navigate their own path.',
+            'Selected across three cycles, sharpening my focus on growth, opportunity, and mentoring other students.',
         imageUrl: '/projects/images/TMCF.PNG',
         link: 'https://tmcf.org/photos/citi-hbcu-immersion-2025/',
     },
     {
-        stat: 'Pitch Win',
-        name: 'Emerging Leaders Pitch',
-        organization: 'Andrew Young Emerging Leaders Institute',
-        tag: 'pitch',
-        description:
-            'A team win that came from story, strategy, and execution. It reminded me that strong products earn attention when the vision and the build meet in the middle.',
-        imageUrl: '/projects/images/pitch.jpg',
-    },
-    {
-        stat: '14x',
-        name: 'Student Advocacy',
-        organization: 'Leadership & Wellbeing Conferences',
+        stat: 'Expo',
+        name: 'AfroTech Conference',
+        organization: 'AfroTech',
         tag: 'leadership',
         description:
-            "Across 14 conferences, I've helped push for more intentional student wellbeing, stronger support systems, and more equitable opportunities on campus.",
-        imageUrl: '/projects/images/handup.JPEG',
-    },
-    {
-        stat: 'Founder',
-        name: 'ExposeToEmpower',
-        organization: 'STEM Workshop Initiative',
-        tag: 'community',
-        description:
-            'I created hands-on STEM workshop experiences for students who were seeing basic computer interaction for the first time, turning curiosity into confidence.',
-        imageUrl: '/projects/images/teaching kids.jpg',
-        link: 'https://www.linkedin.com/posts/cyril-kups_stemeducation-bridgingthedigitaldivide-futureready-activity-7212237297390370816-m9A8/?utm_medium=ios_app&rcm=ACoAADlbc1ABX_Smvfrl1bROAQpVgIhz-kRcZl4&utm_source=social_share_send&utm_campaign=copy_link',
+            'Showed up to AfroTech to learn from top builders, grow my network, and stay close to where technology and culture meet.',
+        imageUrl: '/projects/images/my journey/Afrotech Conference.jpeg',
     },
 ];
 

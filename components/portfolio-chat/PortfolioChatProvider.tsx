@@ -131,12 +131,17 @@ function getApiConversation(messages: ChatMessage[]) {
 }
 
 function buildMailtoHref(body: string) {
-    const params = new URLSearchParams({
-        subject: GENERAL_INFO.emailSubject,
-        body,
-    });
+    const params = [
+        ['subject', GENERAL_INFO.emailSubject],
+        ['body', body],
+    ]
+        .filter(([, value]) => value.length > 0)
+        .map(
+            ([key, value]) => `${key}=${encodeURIComponent(value)}`,
+        )
+        .join('&');
 
-    return `mailto:${GENERAL_INFO.email}?${params.toString()}`;
+    return `mailto:${GENERAL_INFO.email}?${params}`;
 }
 
 function appendMessages(previous: ChatMessage[], ...next: ChatMessage[]) {

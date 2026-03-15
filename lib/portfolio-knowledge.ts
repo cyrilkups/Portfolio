@@ -448,12 +448,30 @@ const SECTION_ENTRIES: MatchableKnowledgeEntry[] = [
     },
     {
         id: 'journey',
-        title: 'Journey',
-        plainText: sanitizePlainText(journeySummary()),
-        keywords: ['journey', 'milestones', 'fellowships', 'community'],
-        label: 'My Journey',
+        title: 'Side Quest',
+        plainText: sanitizePlainText(
+            `Cyril's Side Quest section covers milestones across hackathons, scholarships, leadership, pitching, and community work. ${journeySummary()}`,
+        ),
+        keywords: [
+            'side quest',
+            'sidequest',
+            'journey',
+            'milestones',
+            'fellowships',
+            'community',
+            'hackathons',
+            'leadership',
+        ],
+        label: 'Side Quest',
         href: '/#journey',
-        aliases: ['journey', 'milestones', 'my journey'],
+        aliases: [
+            'side quest',
+            'sidequest',
+            'journey',
+            'milestones',
+            'my journey',
+            'side quests',
+        ],
         kind: 'section',
     },
     {
@@ -729,12 +747,20 @@ const JOURNEY_ENTRIES: MatchableKnowledgeEntry[] = JOURNEY_ITEMS.map((item) => (
     id: `journey-${normalizeText(item.name).replace(/\s+/g, '-')}`,
     title: item.name,
     plainText: sanitizePlainText(
-        `${item.name}. ${item.organization}. ${item.description} Stat: ${item.stat}.`,
+        `${item.name}. ${item.organization}. ${item.description} Stat: ${item.stat}. This appears in Cyril's Side Quest section.`,
     ),
-    keywords: [item.name, item.organization, item.tag, item.stat, 'journey'],
-    label: 'My Journey',
+    keywords: [
+        item.name,
+        item.organization,
+        item.tag,
+        item.stat,
+        'journey',
+        'side quest',
+        'sidequest',
+    ],
+    label: 'Side Quest',
     href: '/#journey',
-    aliases: [item.name, item.organization, item.tag],
+    aliases: [item.name, item.organization, item.tag, `${item.name} side quest`],
     kind: 'journey-detail',
     externalHref: item.link,
 }));
@@ -861,7 +887,7 @@ const SECTION_ACTION_LABELS: Record<string, string> = {
     education: 'View education',
     stack: 'View stack',
     experience: 'View experience',
-    journey: 'View journey',
+    journey: 'View Side Quest',
     snapshot: 'View highlights',
     'projects-overview': 'View projects',
     'outside-work': 'View outside work',
@@ -1321,7 +1347,7 @@ function getPortfolioAnswerForEntry(
             .join(', ');
 
         return toShortAnswer(
-            `Cyril's journey includes milestones like ${milestones}.`,
+            `Cyril's Side Quest section includes milestones like ${milestones}.`,
             'That section focuses on the scholarships, advocacy, pitching, and community work that shaped how he builds.',
         );
     }
@@ -1643,7 +1669,7 @@ function buildEntryActions(entry: MatchableKnowledgeEntry) {
 
     if (entry.kind === 'journey-detail') {
         return [
-            createScrollAction('journey', 'View journey'),
+            createScrollAction('journey', 'View Side Quest'),
             entry.externalHref
                 ? createExternalAction(`Open ${entry.title}`, entry.externalHref)
                 : createScrollAction('snapshot', 'View highlights'),
