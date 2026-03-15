@@ -17,9 +17,7 @@ const allDisplayed = [...featuredProjects, ...hiddenProjects];
 
 const ProjectList = () => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const projectListRef = useRef<HTMLDivElement>(null);
     const imageContainer = useRef<HTMLDivElement>(null);
-    const imageRef = useRef<HTMLImageElement>(null);
     const hiddenRef = useRef<HTMLDivElement>(null);
     const [selectedProject, setSelectedProject] = useState<string | null>(
         featuredProjects[0]?.slug ?? null,
@@ -53,7 +51,7 @@ const ProjectList = () => {
     };
 
     useGSAP(
-        (context, contextSafe) => {
+        (_, contextSafe) => {
             if (window.innerWidth < 768) {
                 setSelectedProject(null);
                 return;
@@ -156,17 +154,13 @@ const ProjectList = () => {
                                                 selectedProject,
                                         },
                                     )}
-                                    ref={imageRef}
                                     key={project.slug}
                                 />
                             ))}
                         </div>
                     )}
 
-                    <div
-                        className="flex flex-col max-md:gap-10"
-                        ref={projectListRef}
-                    >
+                    <div className="flex flex-col max-md:gap-10">
                         {/* Featured projects — always visible */}
                         {featuredProjects.map((project, i) => (
                             <Project

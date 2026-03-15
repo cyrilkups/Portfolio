@@ -15,7 +15,6 @@ import {
     OUTSIDE_WORK_INTERESTS,
     PRODUCTS_WORKED_ON,
     PROJECTS,
-    SNAPSHOT_HIGHLIGHTS,
     SOCIAL_LINKS,
 } from '@/lib/portfolio-content';
 
@@ -32,7 +31,6 @@ interface MatchableKnowledgeEntry extends PortfolioKnowledgeEntry {
         | 'stack-category'
         | 'stack-item'
         | 'experience-detail'
-        | 'snapshot-detail'
         | 'journey-detail'
         | 'product-link'
         | 'outside-work-detail'
@@ -42,12 +40,7 @@ interface MatchableKnowledgeEntry extends PortfolioKnowledgeEntry {
     projectSlug?: string;
 }
 
-export interface PortfolioKnowledgeMatch {
-    entry: PortfolioKnowledgeEntry;
-    score: number;
-}
-
-export interface PortfolioChatPlan {
+interface PortfolioChatPlan {
     response: PortfolioChatResponse;
     contextEntries: PortfolioKnowledgeEntry[];
     shouldUseModel: boolean;
@@ -57,6 +50,8 @@ const MODEL_CALL_THRESHOLD = 25;
 const REFERENCE_THRESHOLD = 35;
 const MAX_ACTIONS = 3;
 const MAX_FOLLOW_UPS = 3;
+const GREETING_ONLY_PATTERN =
+    /^(?:hi|hii|hiii|hey|heyy|hello|hiya|howdy|yo|greetings|good morning|good afternoon|good evening)(?:\s+(?:there|buddy|friend|pal|bro|sis|team|folks|everyone|yall|ya|man))*$/i;
 const HIRE_CONTACT_INTENT_PATTERN =
     /\b(hire|hiring|work with|work together|reach out|contact|email|resume|cv|availability|available|let's talk|lets talk)\b/i;
 const GENERAL_QUESTION_PATTERN =
@@ -152,7 +147,7 @@ function decodeHtmlEntities(value: string) {
         .replace(/&gt;/gi, '>');
 }
 
-export function sanitizePlainText(value: string) {
+function sanitizePlainText(value: string) {
     return decodeHtmlEntities(
         value
             .replace(/<br\s*\/?>/gi, ' ')
@@ -164,7 +159,7 @@ export function sanitizePlainText(value: string) {
     );
 }
 
-export function normalizeText(value: string) {
+function normalizeText(value: string) {
     return sanitizePlainText(value)
         .normalize('NFKD')
         .replace(/[\u0300-\u036f]/g, '')
@@ -222,13 +217,6 @@ function experienceSummary() {
     ).join(' ');
 }
 
-function snapshotSummary() {
-    return SNAPSHOT_HIGHLIGHTS.map(
-        (highlight) =>
-            `${highlight.name}: ${highlight.title}. ${highlight.description}`,
-    ).join(' ');
-}
-
 function journeySummary() {
     return JOURNEY_ITEMS.map(
         (item) =>
@@ -253,18 +241,6 @@ function projectOverviewSummary() {
 
 function formatCategoryLabel(category: string) {
     return category.charAt(0).toUpperCase() + category.slice(1);
-}
-
-function getFirstAvailableSnapshotLink(
-    highlight: (typeof SNAPSHOT_HIGHLIGHTS)[number],
-) {
-    return (
-        highlight.websiteUrl ??
-        highlight.linkedinUrl ??
-        highlight.youtubeUrl ??
-        highlight.githubUrl ??
-        highlight.twitterUrl
-    );
 }
 
 function getProjectSlugForProduct(name: string) {
@@ -472,16 +448,6 @@ const SECTION_ENTRIES: MatchableKnowledgeEntry[] = [
             'my journey',
             'side quests',
         ],
-        kind: 'section',
-    },
-    {
-        id: 'snapshot',
-        title: 'Snapshot Highlights',
-        plainText: sanitizePlainText(snapshotSummary()),
-        keywords: ['snapshot', 'awards', 'leadership', 'highlights'],
-        label: 'Cyril in a Snapshot',
-        href: '/#snapshot',
-        aliases: ['snapshot', 'awards', 'leadership', 'highlights'],
         kind: 'section',
     },
     {
@@ -717,32 +683,6 @@ const EXPERIENCE_ENTRIES: MatchableKnowledgeEntry[] = MY_EXPERIENCE.map(
     }),
 );
 
-const SNAPSHOT_ENTRIES: MatchableKnowledgeEntry[] = SNAPSHOT_HIGHLIGHTS.map(
-    (highlight) => ({
-        id: `snapshot-${normalizeText(highlight.name).replace(/\s+/g, '-')}`,
-        title: highlight.name,
-        plainText: sanitizePlainText(
-            `${highlight.name}. ${highlight.title}. ${highlight.description} ${
-                getFirstAvailableSnapshotLink(highlight)
-                    ? 'An external link is available for this highlight.'
-                    : ''
-            }`,
-        ),
-        keywords: [
-            highlight.name,
-            highlight.title,
-            'snapshot',
-            'highlight',
-            'leadership',
-        ],
-        label: 'Cyril in a Snapshot',
-        href: '/#snapshot',
-        aliases: [highlight.name, highlight.title],
-        kind: 'snapshot-detail',
-        externalHref: getFirstAvailableSnapshotLink(highlight),
-    }),
-);
-
 const JOURNEY_ENTRIES: MatchableKnowledgeEntry[] = JOURNEY_ITEMS.map((item) => ({
     id: `journey-${normalizeText(item.name).replace(/\s+/g, '-')}`,
     title: item.name,
@@ -888,7 +828,6 @@ const SECTION_ACTION_LABELS: Record<string, string> = {
     stack: 'View stack',
     experience: 'View experience',
     journey: 'View Side Quest',
-    snapshot: 'View highlights',
     'projects-overview': 'View projects',
     'outside-work': 'View outside work',
     contact: 'Open contact',
@@ -900,8 +839,7 @@ const ADJACENT_SECTION_MAP: Record<string, string> = {
     education: 'experience',
     stack: 'projects-overview',
     experience: 'projects-overview',
-    journey: 'snapshot',
-    snapshot: 'projects-overview',
+    journey: 'projects-overview',
     'projects-overview': 'contact',
     'outside-work': 'about-me-intro',
     contact: 'experience',
@@ -915,7 +853,6 @@ const ALL_MATCHABLE_ENTRIES: MatchableKnowledgeEntry[] = [
     ...STACK_ITEM_ENTRIES,
     ...EDUCATION_DETAIL_ENTRIES,
     ...EXPERIENCE_ENTRIES,
-    ...SNAPSHOT_ENTRIES,
     ...JOURNEY_ENTRIES,
     ...PRODUCT_ENTRIES,
     ...OUTSIDE_WORK_ENTRIES,
@@ -923,10 +860,6 @@ const ALL_MATCHABLE_ENTRIES: MatchableKnowledgeEntry[] = [
     ...RESOURCE_ENTRIES,
     ...SITE_ENTRIES,
     ...PROJECT_ENTRIES,
-];
-
-export const PORTFOLIO_KNOWLEDGE: PortfolioKnowledgeEntry[] = [
-    ...ALL_MATCHABLE_ENTRIES,
 ];
 
 function getEntryById(id: string) {
@@ -1164,7 +1097,7 @@ function scoreEntry(
     return score;
 }
 
-export function getTopPortfolioMatches(query: string, limit = 3) {
+function getTopPortfolioMatches(query: string, limit = 3) {
     const entries = ALL_MATCHABLE_ENTRIES;
 
     return entries
@@ -1177,12 +1110,7 @@ export function getTopPortfolioMatches(query: string, limit = 3) {
         .slice(0, limit);
 }
 
-export function shouldCallPortfolioModel(query: string) {
-    const bestMatch = getTopPortfolioMatches(query, 1)[0];
-    return Boolean(bestMatch && bestMatch.score >= MODEL_CALL_THRESHOLD);
-}
-
-export function getPortfolioReferences(query: string): ChatReference[] {
+function getPortfolioReferences(query: string): ChatReference[] {
     const seen = new Set<string>();
 
     return getTopPortfolioMatches(query, 5)
@@ -1235,8 +1163,8 @@ function isFullNameQuestion(query: string) {
     return FULL_NAME_PATTERN.test(query) || normalizeText(query) === 'cyril name';
 }
 
-export function getPortfolioContextEntries(query: string) {
-    return getTopPortfolioMatches(query, 3).map((match) => match.entry);
+function isGreetingOnly(query: string) {
+    return GREETING_ONLY_PATTERN.test(normalizeText(query));
 }
 
 function getPortfolioAnswerForEntry(
@@ -1352,17 +1280,6 @@ function getPortfolioAnswerForEntry(
         );
     }
 
-    if (primaryEntry.id === 'snapshot') {
-        const highlights = SNAPSHOT_HIGHLIGHTS.slice(0, 3)
-            .map((highlight) => highlight.name)
-            .join(', ');
-
-        return toShortAnswer(
-            `Highlights from Cyril's portfolio include ${highlights}.`,
-            'They reflect leadership, scholarships, student advocacy, and community impact.',
-        );
-    }
-
     if (primaryEntry.id === 'projects-overview') {
         const projectNames = PROJECTS.map((project) => project.title).join(', ');
 
@@ -1378,7 +1295,7 @@ function getPortfolioAnswerForEntry(
 
         return toShortAnswer(
             `Outside of work, Cyril enjoys ${interests}.`,
-            'Those interests show up across the personality and snapshot sections of the portfolio.',
+            'Those interests show up across the personality and Side Quest sections of the portfolio.',
         );
     }
 
@@ -1441,16 +1358,6 @@ function getPortfolioAnswerForEntry(
         getSentences(primaryEntry.plainText).slice(0, 2).join(' ') ||
         getPortfolioFallbackAnswer()
     );
-}
-
-export function getPortfolioLocalAnswer(query: string) {
-    const [primaryEntry] = getPortfolioContextEntries(query);
-
-    if (!primaryEntry) {
-        return getPortfolioFallbackAnswer();
-    }
-
-    return getPortfolioAnswerForEntry(primaryEntry, query);
 }
 
 function isHireOrContactIntent(query: string) {
@@ -1531,7 +1438,7 @@ function getGeneralGuidanceEntryIds(
     }
 
     if (key === 'leadership') {
-        return ['experience', 'snapshot', 'projects-overview'];
+        return ['experience', 'journey', 'projects-overview'];
     }
 
     if (key === 'career') {
@@ -1559,7 +1466,7 @@ function getGeneralGuidanceFollowUps(
     if (key === 'leadership') {
         return [
             'Tell me about his experience',
-            'Show me his highlights',
+            'Show me his Side Quest',
             'How can I contact him?',
         ];
     }
@@ -1602,14 +1509,6 @@ function getGeneralGuidanceActions(
     ];
 }
 
-function getSectionIdFromHref(href?: string) {
-    if (!href || !href.startsWith('/#')) {
-        return null;
-    }
-
-    return href.slice(2);
-}
-
 function buildEntryActions(entry: MatchableKnowledgeEntry) {
     if (entry.kind === 'project-detail' && entry.projectSlug) {
         return [
@@ -1643,7 +1542,7 @@ function buildEntryActions(entry: MatchableKnowledgeEntry) {
         return [
             createScrollAction('education'),
             createScrollAction('experience', 'View experience'),
-            createScrollAction('snapshot', 'View highlights'),
+            createScrollAction('journey', 'View Side Quest'),
         ];
     }
 
@@ -1657,22 +1556,12 @@ function buildEntryActions(entry: MatchableKnowledgeEntry) {
         ];
     }
 
-    if (entry.kind === 'snapshot-detail') {
-        return [
-            createScrollAction('snapshot'),
-            entry.externalHref
-                ? createExternalAction(`Open ${entry.title}`, entry.externalHref)
-                : createScrollAction('experience', 'View experience'),
-            createScrollAction('experience', 'View experience'),
-        ];
-    }
-
     if (entry.kind === 'journey-detail') {
         return [
             createScrollAction('journey', 'View Side Quest'),
             entry.externalHref
                 ? createExternalAction(`Open ${entry.title}`, entry.externalHref)
-                : createScrollAction('snapshot', 'View highlights'),
+                : createScrollAction('experience', 'View experience'),
             createScrollAction('projects-overview', 'View projects'),
         ];
     }
@@ -1721,7 +1610,6 @@ function buildEntryActions(entry: MatchableKnowledgeEntry) {
         ];
     }
 
-    const sectionId = getSectionIdFromHref(entry.href);
     const adjacentSectionId = ADJACENT_SECTION_MAP[entry.id];
 
     return [
@@ -1781,14 +1669,6 @@ function getFollowUpsForEntry(entry: MatchableKnowledgeEntry) {
 
     if (entry.id === 'journey') {
         return [
-            'Show me his highlights',
-            'Tell me about his experience',
-            'How can I contact him?',
-        ];
-    }
-
-    if (entry.id === 'snapshot') {
-        return [
             'Tell me about his experience',
             'Tell me about his projects',
             'How can I contact him?',
@@ -1822,7 +1702,7 @@ function getFollowUpsForEntry(entry: MatchableKnowledgeEntry) {
     if (entry.kind === 'education-detail') {
         return [
             'Tell me about his experience',
-            'Show me his highlights',
+            'Show me his Side Quest',
             'How can I contact him?',
         ];
     }
@@ -1843,7 +1723,7 @@ function getFollowUpsForEntry(entry: MatchableKnowledgeEntry) {
         ];
     }
 
-    if (entry.kind === 'snapshot-detail' || entry.kind === 'journey-detail') {
+    if (entry.kind === 'journey-detail') {
         return [
             'Tell me about his experience',
             'Tell me about his projects',
@@ -1939,6 +1819,42 @@ function buildContactPlan(query: string): PortfolioChatPlan {
     };
 }
 
+function buildGreetingPlan(query: string): PortfolioChatPlan {
+    const normalizedQuery = normalizeText(query);
+    const greeting =
+        normalizedQuery.startsWith('good morning')
+            ? 'Good morning'
+            : normalizedQuery.startsWith('good afternoon')
+              ? 'Good afternoon'
+              : normalizedQuery.startsWith('good evening')
+                ? 'Good evening'
+                : 'Hey';
+
+    return {
+        response: buildChatResponse(
+            `${greeting}! I can help you explore Cyril's background, projects, tech stack, experience, or contact info.`,
+            [],
+            [
+                createScrollAction('about-me-intro', 'View profile'),
+                createScrollAction('projects-overview', 'View projects'),
+                createComposeEmailAction('Contact Cyril'),
+            ],
+            [
+                'Who is Cyril?',
+                'What is his tech stack?',
+                'Tell me about his projects',
+            ],
+            'portfolio',
+        ),
+        contextEntries: getEntriesByIds([
+            'about-me-intro',
+            'projects-overview',
+            'experience',
+        ]),
+        shouldUseModel: false,
+    };
+}
+
 function buildPortfolioEntryPlan(
     query: string,
     entry: MatchableKnowledgeEntry,
@@ -2012,6 +1928,10 @@ export function getPortfolioChatPlan(query: string): PortfolioChatPlan {
 
     if (!trimmedQuery) {
         return buildRedirectPlan();
+    }
+
+    if (isGreetingOnly(trimmedQuery)) {
+        return buildGreetingPlan(trimmedQuery);
     }
 
     if (isHireOrContactIntent(trimmedQuery)) {

@@ -6,8 +6,8 @@ import { MessageCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-export type ChatPosition = 'bottom-right' | 'bottom-left';
-export type ChatSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
+type ChatPosition = 'bottom-right' | 'bottom-left';
+type ChatSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
 const chatConfig = {
     dimensions: {
@@ -94,7 +94,7 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
                     setRef(contentRef, node);
                 }}
                 className={cn(
-                    'fixed inset-0 flex h-full w-full flex-col overflow-hidden border border-border bg-background shadow-2xl transition-all duration-200 ease-out sm:absolute sm:inset-auto sm:h-[80vh] sm:w-[90vw] sm:rounded-2xl',
+                    'fixed inset-0 flex h-[100dvh] w-screen flex-col overflow-hidden border border-border bg-background shadow-2xl transition-all duration-200 ease-out sm:absolute sm:inset-auto sm:h-[80vh] sm:w-[90vw] sm:rounded-2xl',
                     chatConfig.chatPositions[position],
                     chatConfig.dimensions[size],
                     isOpen ? chatConfig.states.open : chatConfig.states.closed,

@@ -65,18 +65,6 @@ export const EDUCATION = {
     ],
 };
 
-export interface SnapshotHighlight {
-    name: string;
-    title: string;
-    description: string;
-    imageUrl: string;
-    githubUrl?: string;
-    twitterUrl?: string;
-    youtubeUrl?: string;
-    linkedinUrl?: string;
-    websiteUrl?: string;
-}
-
 export type JourneyTag =
     | 'fellowship'
     | 'scholarship'
@@ -85,7 +73,7 @@ export type JourneyTag =
     | 'leadership'
     | 'community';
 
-export interface JourneyItem {
+interface JourneyItem {
     stat: string;
     name: string;
     organization: string;
@@ -94,56 +82,6 @@ export interface JourneyItem {
     imageUrl: string;
     link?: string;
 }
-
-export const SNAPSHOT_HIGHLIGHTS: SnapshotHighlight[] = [
-    {
-        name: 'Strada Scholar',
-        title: 'Strada Education Foundation',
-        description:
-            'Chosen as one of three students campus-wide to participate in a leadership and career advancement fellowship. Worked alongside industry mentors to design community impact initiatives and strengthen access to meaningful career opportunities for students.',
-        imageUrl: '/projects/images/Strada.JPG',
-        youtubeUrl: 'https://youtu.be/Bd-e7JvvylQ?si=qLTtDmmn16xI9QPQ',
-        linkedinUrl:
-            'https://www.linkedin.com/posts/cyril-kups_gramblingstate-activity-7253144700348469248-c9eS?utm_source=share&utm_medium=member_desktop&rcm=ACoAADlbc1ABX_Smvfrl1bROAQpVgIhz-kRcZl4',
-    },
-    {
-        name: 'TMCF Scholar',
-        title: 'Thurgood Marshall College Fund',
-        description:
-            'Selected as a TMCF Scholar across three cycles. The program has shaped how I approach growth and career planning, and I now mentor other students through their own academic and fellowship journeys.',
-        imageUrl: '/projects/images/TMCF.PNG',
-        websiteUrl: 'https://tmcf.org/photos/citi-hbcu-immersion-2025/',
-    },
-    {
-        name: 'Pitch Win',
-        title: 'Andrew Young Emerging Leaders Institute',
-        description:
-            'A moment after a pitch we worked hard on - celebrating the win and the people who helped build it. Growth that came from collaboration, not competition.',
-        imageUrl: '/projects/images/pitch.jpg',
-    },
-    {
-        name: 'The Leader in Me',
-        title: 'Student Advocacy & Leadership',
-        description:
-            "One of 14 conferences where I've worked to support student wellbeing and push for more intentional, equitable initiatives.",
-        imageUrl: '/projects/images/handup.JPEG',
-    },
-    {
-        name: 'The Thunderbolt',
-        title: 'I overthought it for like 10 minutes... then got on anyway.',
-        description: 'Sometimes the challenge is simply saying "okay, go."',
-        imageUrl: '/projects/images/rollercoaster.JPG',
-    },
-    {
-        name: 'Founder',
-        title: 'ExposeToEmpower Initiative - STEM Workshop',
-        description:
-            'For many students, it was their first time ever seeing a mouse cursor move. We introduced computer basics, simple coding, and Arduino activities - opening a door to what technology could be for them.',
-        imageUrl: '/projects/images/teaching kids.jpg',
-        linkedinUrl:
-            'https://www.linkedin.com/posts/cyril-kups_stemeducation-bridgingthedigitaldivide-futureready-activity-7212237297390370816-m9A8/?utm_medium=ios_app&rcm=ACoAADlbc1ABX_Smvfrl1bROAQpVgIhz-kRcZl4&utm_source=social_share_send&utm_campaign=copy_link',
-    },
-];
 
 export const JOURNEY_ITEMS: JourneyItem[] = [
     {
@@ -165,6 +103,16 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
         imageUrl: '/projects/images/my journey/mastercard pitch.jpg',
     },
     {
+        stat: 'Founder',
+        name: 'ExposeToEmpower Initiative',
+        organization: 'STEM Workshop',
+        tag: 'community',
+        description:
+            'For many students, it was their first time ever seeing a mouse cursor move. We introduced computer basics, simple coding, and Arduino activities - opening a door to what technology could be for them.',
+        imageUrl: '/projects/images/my journey/teaching kids.JPG',
+        link: 'https://www.linkedin.com/posts/cyril-kups_stemeducation-bridgingthedigitaldivide-futureready-activity-7212237297390370816-m9A8/?utm_medium=ios_app&rcm=ACoAADlbc1ABX_Smvfrl1bROAQpVgIhz-kRcZl4&utm_source=social_share_send&utm_campaign=copy_link',
+    },
+    {
         stat: 'JPMC',
         name: 'Data for Good Hackathon',
         organization: 'JPMorganChase',
@@ -174,13 +122,23 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
         imageUrl: '/projects/images/my journey/JPMC Hackathon.jpeg',
     },
     {
+        stat: '1 of 3',
+        name: 'Strada Scholar',
+        organization: 'Strada Education Foundation',
+        tag: 'fellowship',
+        description:
+            'Chosen as one of three students campus-wide to participate in a leadership and career advancement fellowship. Worked alongside industry mentors to design community impact initiatives and strengthen access to meaningful career opportunities for students.',
+        imageUrl: '/projects/images/my journey/Strada.JPG',
+        link: 'https://youtu.be/Bd-e7JvvylQ?si=qLTtDmmn16xI9QPQ',
+    },
+    {
         stat: '3x',
         name: 'TMCF Scholar',
         organization: 'Thurgood Marshall College Fund',
         tag: 'scholarship',
         description:
             'Selected across three cycles, sharpening my focus on growth, opportunity, and mentoring other students.',
-        imageUrl: '/projects/images/TMCF.PNG',
+        imageUrl: '/projects/images/my journey/TMCF.PNG',
         link: 'https://tmcf.org/photos/citi-hbcu-immersion-2025/',
     },
     {
@@ -192,9 +150,17 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
             'Showed up to AfroTech to learn from top builders, grow my network, and stay close to where technology and culture meet.',
         imageUrl: '/projects/images/my journey/Afrotech Conference.jpeg',
     },
+    {
+        stat: 'Milestone',
+        name: 'The Thunderbolt',
+        organization: 'Personal Challenge',
+        tag: 'leadership',
+        description: 'Sometimes the challenge is simply saying "okay, go."',
+        imageUrl: '/projects/images/my journey/rollercoaster.JPG',
+    },
 ];
 
-export type OutsideWorkIconKey =
+type OutsideWorkIconKey =
     | 'trophy'
     | 'waves'
     | 'music'
@@ -202,7 +168,7 @@ export type OutsideWorkIconKey =
     | 'coffee'
     | 'plane';
 
-export interface OutsideWorkInterest {
+interface OutsideWorkInterest {
     title: string;
     imageSrc: string;
     iconKey: OutsideWorkIconKey;
@@ -248,7 +214,7 @@ export const OUTSIDE_WORK_INTERESTS: OutsideWorkInterest[] = [
     },
 ];
 
-export const FEATURED_PROJECT_SLUGS = [
+const FEATURED_PROJECT_SLUGS = [
     'campus-hustle',
     'card-fraud-detect-ai',
     'spec-linter',
@@ -256,7 +222,7 @@ export const FEATURED_PROJECT_SLUGS = [
     'braille-technology',
 ] as const;
 
-export const HIDDEN_PROJECT_SLUGS = [
+const HIDDEN_PROJECT_SLUGS = [
     'doc-link',
     'stock-insight-engine',
     'quick-reach',

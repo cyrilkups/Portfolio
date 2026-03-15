@@ -192,6 +192,7 @@ function SideQuestCard({
 
 export default function SideQuest() {
     const sectionRef = useRef<HTMLElement>(null);
+    const stickyRef = useRef<HTMLDivElement>(null);
     const viewportRef = useRef<HTMLDivElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
 
@@ -209,10 +210,11 @@ export default function SideQuest() {
             const mm = gsap.matchMedia();
 
             mm.add('(min-width: 1024px)', () => {
+                const sticky = stickyRef.current;
                 const viewport = viewportRef.current;
                 const track = trackRef.current;
 
-                if (!viewport || !track) {
+                if (!section || !sticky || !viewport || !track) {
                     return;
                 }
 
@@ -236,9 +238,28 @@ export default function SideQuest() {
                     );
                 };
 
-                if (getDistance() <= 0) {
+                const syncSectionHeight = () => {
+                    const distance = getDistance();
+
+                    if (distance <= 0) {
+                        section.style.removeProperty('height');
+                        return;
+                    }
+
+                    section.style.height = `${window.innerHeight + distance}px`;
+                };
+
+                const distance = getDistance();
+
+                if (distance <= 0) {
+                    section.style.removeProperty('height');
                     return;
                 }
+
+                syncSectionHeight();
+                gsap.set(track, { x: 0 });
+
+                ScrollTrigger.addEventListener('refreshInit', syncSectionHeight);
 
                 const tween = gsap.to(track, {
                     x: () => -getDistance(),
@@ -249,13 +270,18 @@ export default function SideQuest() {
                         start: 'top top',
                         end: () => `+=${getDistance()}`,
                         scrub: true,
-                        pin: true,
                         fastScrollEnd: true,
                         invalidateOnRefresh: true,
                     },
                 });
 
                 return () => {
+                    ScrollTrigger.removeEventListener(
+                        'refreshInit',
+                        syncSectionHeight,
+                    );
+                    section.style.removeProperty('height');
+                    gsap.set(track, { x: 0 });
                     tween.scrollTrigger?.kill();
                     tween.kill();
                 };
@@ -273,46 +299,51 @@ export default function SideQuest() {
         <section
             ref={sectionRef}
             id="journey"
-            className="relative overflow-hidden py-14 lg:h-screen lg:py-0"
+            className="relative py-14 lg:py-0"
         >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_12%,rgba(59,130,246,0.18),transparent_0,transparent_38%),radial-gradient(circle_at_85%_85%,rgba(125,211,252,0.08),transparent_0,transparent_32%)]" />
 
-            <div className="container relative flex h-full flex-col">
-                <div className="journey-intro shrink-0 pt-0 lg:pt-8">
-                    <SectionTitle title="Side Quest" />
-                </div>
+            <div
+                ref={stickyRef}
+                className="lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden"
+            >
+                <div className="container relative flex h-full flex-col">
+                    <div className="journey-intro shrink-0 pt-0 lg:pt-8">
+                        <SectionTitle title="Side Quest" />
+                    </div>
 
-                <div className="grid gap-5 lg:hidden">
+                    <div className="grid gap-5 lg:hidden">
                         {JOURNEY_ITEMS.map((item, index) => (
-                        <SideQuestCard
-                            key={item.name}
-                            item={item}
-                            index={index}
-                            variant="mobile"
-                        />
-                    ))}
-                </div>
+                            <SideQuestCard
+                                key={item.name}
+                                item={item}
+                                index={index}
+                                variant="mobile"
+                            />
+                        ))}
+                    </div>
 
-                <div
-                    ref={viewportRef}
-                    data-lenis-prevent-touch
-                    className="relative hidden lg:flex-1 lg:-mx-0 lg:block lg:overflow-hidden lg:px-0 lg:pb-0"
-                >
                     <div
-                        ref={trackRef}
-                        className="relative flex h-full min-w-max border-y border-border/70 bg-background/40 backdrop-blur-sm"
+                        ref={viewportRef}
+                        data-lenis-prevent-touch
+                        className="relative hidden lg:flex-1 lg:-mx-0 lg:block lg:overflow-hidden lg:px-0 lg:pb-0"
                     >
-                        {JOURNEY_ITEMS.map((item, index) => {
-                            return (
-                                <SideQuestCard
-                                    key={item.name}
-                                    item={item}
-                                    index={index}
-                                    variant="desktop"
-                                    reverse={index % 2 === 1}
-                                />
-                            );
-                        })}
+                        <div
+                            ref={trackRef}
+                            className="relative flex h-full min-w-max border-y border-border/70 bg-background/40 backdrop-blur-sm"
+                        >
+                            {JOURNEY_ITEMS.map((item, index) => {
+                                return (
+                                    <SideQuestCard
+                                        key={item.name}
+                                        item={item}
+                                        index={index}
+                                        variant="desktop"
+                                        reverse={index % 2 === 1}
+                                    />
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>

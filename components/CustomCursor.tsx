@@ -8,7 +8,7 @@ gsap.registerPlugin(useGSAP);
 const CustomCursor = () => {
     const svgRef = useRef<SVGSVGElement>(null);
 
-    useGSAP((context, contextSafe) => {
+    useGSAP((_, contextSafe) => {
         if (window.innerWidth < 768) return;
 
         const handleMouseMove = contextSafe?.((e: MouseEvent) => {
