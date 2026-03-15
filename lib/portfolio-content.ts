@@ -78,6 +78,7 @@ interface JourneyItem {
     name: string;
     organization: string;
     tag: JourneyTag;
+    tagLabel?: string;
     description: string;
     imageUrl: string;
     link?: string;
@@ -155,6 +156,7 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
         name: 'The Thunderbolt',
         organization: 'Personal Challenge',
         tag: 'leadership',
+        tagLabel: 'Personal Growth',
         description: 'Sometimes the challenge is simply saying "okay, go."',
         imageUrl: '/projects/images/my journey/rollercoaster.JPG',
     },

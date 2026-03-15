@@ -134,7 +134,7 @@ function SideQuestCard({
                         tagStyle.badge,
                     )}
                 >
-                    {TAG_LABELS[item.tag]}
+                    {item.tagLabel ?? TAG_LABELS[item.tag]}
                 </span>
 
                 <div>

@@ -70,7 +70,7 @@ const AboutMe = () => {
                 </p>
 
                 <div className="mt-12 md:mt-16 pt-9 md:pt-0">
-                    <div className="flex gap-8 md:gap-16 justify-center items-start flex-wrap">
+                    <div className="flex items-start justify-between gap-3 sm:gap-6 md:justify-center md:gap-16">
                         {PRODUCTS_WORKED_ON.map((product, index) => {
                             let hoverColor = '#3B82F6'; // Campus Hustle - primary color (blue)
                             if (product.name === 'Georim') {
@@ -85,13 +85,13 @@ const AboutMe = () => {
                                     href={product.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex flex-col items-center gap-4 slide-up-and-fade group cursor-pointer"
+                                    className="flex min-w-0 flex-1 flex-col items-center gap-3 slide-up-and-fade group cursor-pointer md:flex-none md:gap-4"
                                     style={{
                                         animationDelay: `${index * 0.15}s`,
                                     }}
                                 >
                                     <div
-                                        className="w-32 h-32 md:w-40 md:h-40 rounded-3xl overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
+                                        className="h-20 w-20 rounded-2xl overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 sm:h-24 sm:w-24 md:h-40 md:w-40 md:rounded-3xl"
                                         style={{
                                             boxShadow: `0px 0px 0px rgba(0, 0, 0, 0)`,
                                             transitionProperty:
@@ -107,14 +107,14 @@ const AboutMe = () => {
                                         <Image
                                             src={product.logo}
                                             alt={product.name}
-                                            width={160}
-                                            height={160}
+                                            width={128}
+                                            height={128}
                                             className="w-full h-full object-cover"
                                             priority
                                         />
                                     </div>
                                     <p
-                                        className="text-base md:text-lg font-medium text-center transition-colors duration-300"
+                                        className="text-center text-sm font-medium leading-tight transition-colors duration-300 sm:text-base md:text-lg"
                                         style={{ color: 'inherit' }}
                                         onMouseEnter={(e) => {
                                             e.currentTarget.style.color =
