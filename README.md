@@ -1,18 +1,16 @@
 # 🚀 My Portfolio Website
 
-If you like my work, give it a star⭐.
+If you like this work, give it a star⭐.
 
-### TL;DR
-
-Yes, you can fork this repo. Please give me proper credit by linking back to [cyril.dev](https://cyril.dev/). Thanks!
+![Portfolio homepage preview](<Screenshot 2026-04-12 at 6.33.28 PM.png>)
 
 ## 🛠 Installation & Set Up
 
 First, run the development server:
 
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -30,17 +28,14 @@ For local development, place them in `.env.local` and restart the Next dev serve
 
 For Vercel, add the same variables in Project Settings -> Environment Variables for the environments you want chat enabled in:
 
-- `Production`
-- `Preview`
-- `Development`
+-   `Production`
+-   `Preview`
+-   `Development`
 
 ## 🤝 Contributing
 
 If you'd like to contribute or suggest improvements, feel free to open an issue or submit a pull request. All contributions are welcome!
 
-## Credit
-
-
 ## 📄 License
 
-This project is open source and available under the [MIT License](https://github.com/cyrilkups/my-portfolio-web/blob/main/LICENSE).
+This project is open source and available under the [MIT License](./LICENSE).
