@@ -256,7 +256,7 @@ const HERO_ENTRIES: MatchableKnowledgeEntry[] = [
         id: 'hero-intro',
         title: 'Hero Intro',
         plainText: sanitizePlainText(
-            "Cyril is a software developer and technical product manager. The hero section highlights 2+ years of experience, 7+ completed projects, and 4K+ hours worked. The primary call to action is the hire me resume link.",
+            "Cyril is a software developer and technical product manager. The hero section highlights 2+ years of experience, 15+ completed projects, and 4K+ hours worked. The primary call to action is the hire me resume link.",
         ),
         keywords: [
             'hero',
@@ -299,14 +299,14 @@ const HERO_STAT_ENTRIES: MatchableKnowledgeEntry[] = [
         id: 'hero-completed-projects',
         title: 'Completed Projects',
         plainText:
-            'The hero section highlights 7+ completed projects across Cyril\'s portfolio.',
-        keywords: ['completed projects', '7+ projects', 'projects'],
+            'The hero section highlights 15+ completed projects across Cyril\'s portfolio.',
+        keywords: ['completed projects', '15+ projects', 'projects'],
         label: 'Hero',
         href: '/#banner',
         aliases: [
             'how many projects',
             'completed projects',
-            '7+ completed projects',
+            '15+ completed projects',
         ],
         kind: 'hero-stat',
     },
@@ -1190,7 +1190,7 @@ function getPortfolioAnswerForEntry(
         }
 
         if (/completed projects|projects/.test(normalizedQuery)) {
-            return "The hero section highlights 7+ completed projects across Cyril's portfolio.";
+            return "The hero section highlights 15+ completed projects across Cyril's portfolio.";
         }
 
         if (/hours worked|hours/.test(normalizedQuery)) {
