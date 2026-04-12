@@ -86,13 +86,13 @@ interface JourneyItem {
 
 export const JOURNEY_ITEMS: JourneyItem[] = [
     {
-        stat: '36 Hr',
-        name: 'HackPrinceton',
-        organization: 'Princeton University',
+        stat: 'JPMC',
+        name: 'Data for Good Hackathon',
+        organization: 'JPMorganChase',
         tag: 'hackathon',
         description:
-            "Joined Princeton University's global 36-hour hackathon to build fast, solve under pressure, and sharpen ideas with other makers.",
-        imageUrl: '/projects/images/my journey/Princeton Hacks.jpg',
+            "Applied data skills to a community-impact challenge through JPMorganChase's Data for Good Hackathon.",
+        imageUrl: '/projects/images/my journey/JPMC Hackathon.jpg',
     },
     {
         stat: 'Pitch Day',
@@ -114,19 +114,20 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
         link: 'https://www.linkedin.com/posts/cyril-kups_stemeducation-bridgingthedigitaldivide-futureready-activity-7212237297390370816-m9A8/?utm_medium=ios_app&rcm=ACoAADlbc1ABX_Smvfrl1bROAQpVgIhz-kRcZl4&utm_source=social_share_send&utm_campaign=copy_link',
     },
     {
-        stat: 'JPMC',
-        name: 'Data for Good Hackathon',
-        organization: 'JPMorganChase',
+        stat: '36 Hr',
+        name: 'HackPrinceton',
+        organization: 'Princeton University',
         tag: 'hackathon',
         description:
-            "Applied data skills to a community-impact challenge through JPMorganChase's Data for Good Hackathon.",
-        imageUrl: '/projects/images/my journey/JPMC Hackathon.jpeg',
+            "Joined Princeton University's global 36-hour hackathon to build fast, solve under pressure, and sharpen ideas with other makers.",
+        imageUrl: '/projects/images/my journey/Princeton Hacks.jpg',
     },
     {
         stat: '1 of 3',
         name: 'Strada Scholar',
         organization: 'Strada Education Foundation',
         tag: 'fellowship',
+        tagLabel: '4x Scholarship Recipient',
         description:
             'Chosen as one of three students campus-wide to participate in a leadership and career advancement fellowship. Worked alongside industry mentors to design community impact initiatives and strengthen access to meaningful career opportunities for students.',
         imageUrl: '/projects/images/my journey/Strada.JPG',

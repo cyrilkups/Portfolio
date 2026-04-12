@@ -163,7 +163,7 @@ function SideQuestCard({
                         sizes={
                             isDesktop
                                 ? '(max-width: 640px) 90vw, (max-width: 1024px) 580px, 680px'
-                                : '(max-width: 640px) calc(100vw - 2.5rem), 540px'
+                                : '(max-width: 640px) 86vw, (max-width: 1024px) 72vw, 540px'
                         }
                         className="object-cover grayscale transition duration-500 group-hover:scale-[1.02] group-hover:grayscale-0"
                     />
@@ -312,15 +312,24 @@ export default function SideQuest() {
                         <SectionTitle title="Side Quest" />
                     </div>
 
-                    <div className="grid gap-5 lg:hidden">
-                        {JOURNEY_ITEMS.map((item, index) => (
-                            <SideQuestCard
-                                key={item.name}
-                                item={item}
-                                index={index}
-                                variant="mobile"
-                            />
-                        ))}
+                    <div className="lg:hidden">
+                        <div
+                            data-lenis-prevent-touch
+                            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth touch-pan-x overscroll-x-contain pb-4 -mx-4 px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6"
+                        >
+                            {JOURNEY_ITEMS.map((item, index) => (
+                                <div
+                                    key={item.name}
+                                    className="w-[86vw] max-w-[32rem] shrink-0 snap-start sm:w-[72vw]"
+                                >
+                                    <SideQuestCard
+                                        item={item}
+                                        index={index}
+                                        variant="mobile"
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     <div
