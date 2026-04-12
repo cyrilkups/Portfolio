@@ -315,7 +315,7 @@ export default function SideQuest() {
                     <div className="lg:hidden">
                         <div
                             data-lenis-prevent-touch
-                            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth touch-pan-x overscroll-x-contain pb-4 -mx-4 px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6"
+                            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth [touch-action:pan-x_pan-y] overscroll-x-contain pb-4 -mx-4 px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6"
                         >
                             {JOURNEY_ITEMS.map((item, index) => (
                                 <div
