@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState, MouseEvent } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Project from './Project';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -57,7 +57,7 @@ const ProjectList = () => {
                 return;
             }
 
-            const handleMouseMove = contextSafe?.((e: MouseEvent) => {
+            const onMouseMove = (e: globalThis.MouseEvent) => {
                 if (!containerRef.current) return;
                 if (!imageContainer.current) return;
 
@@ -89,7 +89,11 @@ const ProjectList = () => {
                     duration: 1,
                     opacity: 1,
                 });
-            }) as any;
+            };
+
+            const handleMouseMove = contextSafe
+                ? contextSafe(onMouseMove)
+                : onMouseMove;
 
             window.addEventListener('mousemove', handleMouseMove);
 

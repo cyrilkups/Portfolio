@@ -11,7 +11,7 @@ const CustomCursor = () => {
     useGSAP((_, contextSafe) => {
         if (window.innerWidth < 768) return;
 
-        const handleMouseMove = contextSafe?.((e: MouseEvent) => {
+        const onMouseMove = (e: globalThis.MouseEvent) => {
             if (!svgRef.current) return;
 
             const { clientX, clientY } = e;
@@ -27,7 +27,11 @@ const CustomCursor = () => {
                 duration: 0.25,
                 opacity: isNativeCursorZone ? 0 : 1,
             });
-        }) as any;
+        };
+
+        const handleMouseMove = contextSafe
+            ? contextSafe(onMouseMove)
+            : onMouseMove;
 
         window.addEventListener('mousemove', handleMouseMove);
 

@@ -402,7 +402,7 @@ export const PROJECTS: IProject[] = [
             <li>📄 <strong>Structured Document Parsing:</strong> Reads YAML, JSON, or Markdown-based specs and converts them into a normalized internal representation</li>
             <li>🧩 <strong>Modular Rule Engine:</strong> Teams can define custom rule modules that can be swapped, extended, or tuned per project</li>
             <li>🏗️ <strong>Schema Compliance Enforcement:</strong> Checks field types, required fields, param ranges, and API signature consistency</li>
-            <li>� <strong>Batch + CI Mode:</strong> Runs as a command-line tool or as part of automated CI pipelines to prevent invalid specs from shipping</li>
+            <li>⚙️ <strong>Batch + CI Mode:</strong> Runs as a command-line tool or as part of automated CI pipelines to prevent invalid specs from shipping</li>
         </ul><br/>
         
         <strong>Technical Highlights:</strong><br/>
@@ -651,11 +651,11 @@ export const PROJECTS: IProject[] = [
             <ul>
                 <li>📈 <strong>Live Price Data:</strong> Real-time and historical performance data via yFinance</li>
                 <li>📊 <strong>Interactive Visualizations:</strong> Candlestick + volume charts with Plotly</li>
-                <li>� <strong>Technical Indicators:</strong> 50-day and 200-day moving average overlays</li>
+                <li>📉 <strong>Technical Indicators:</strong> 50-day and 200-day moving average overlays</li>
                 <li>🎯 <strong>Risk Analysis:</strong> Return and volatility calculations with Pandas/NumPy</li>
-                <li>� <strong>Financial Metrics:</strong> Company overview and key financial data</li>
+                <li>💼 <strong>Financial Metrics:</strong> Company overview and key financial data</li>
                 <li>⭐ <strong>Persistent Storage:</strong> Watchlist and recent search tracking with SQLite + SQLAlchemy</li>
-                <li>� <strong>Responsive Design:</strong> Light/Dark theme and adaptive layout for usability</li>
+                <li>📱 <strong>Responsive Design:</strong> Light/Dark theme and adaptive layout for usability</li>
             </ul><br/>
 
             <strong>Impact</strong><br/>
