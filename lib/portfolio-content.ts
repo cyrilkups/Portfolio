@@ -151,8 +151,7 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
         tag: 'leadership',
         description:
             'Showed up to AfroTech to learn from top builders, grow my network, and stay close to where technology and culture meet.',
-        imageUrl:
-            '/projects/images/my-journey-optimized/afrotech-conference.jpg',
+        imageUrl: '/projects/images/my journey/Afrotech Conference.jpeg',
     },
     {
         stat: 'Milestone',

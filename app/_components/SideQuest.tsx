@@ -415,7 +415,6 @@ export default function SideQuest() {
 
                     <div
                         ref={viewportRef}
-                        data-lenis-prevent
                         className="relative hidden lg:flex-1 lg:-mx-0 lg:block lg:overflow-hidden lg:px-0 lg:pb-0"
                     >
                         <div
