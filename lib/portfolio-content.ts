@@ -92,7 +92,7 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
         tag: 'hackathon',
         description:
             "Applied data skills to a community-impact challenge through JPMorganChase's Data for Good Hackathon.",
-        imageUrl: '/projects/images/my journey/JPMC Hackathon.jpg',
+        imageUrl: '/projects/images/my-journey-optimized/jpmc-hackathon.jpg',
     },
     {
         stat: 'Pitch Day',
@@ -101,7 +101,8 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
         tag: 'pitch',
         description:
             'Presented a data-driven story live, translating analysis into clear findings people could immediately act on.',
-        imageUrl: '/projects/images/my journey/mastercard pitch.jpg',
+        imageUrl:
+            '/projects/images/my-journey-optimized/mastercard-data-challenge.jpg',
     },
     {
         stat: 'Founder',
@@ -130,7 +131,7 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
         tagLabel: '4x Scholarship Recipient',
         description:
             'Chosen as one of three students campus-wide to participate in a leadership and career advancement fellowship. Worked alongside industry mentors to design community impact initiatives and strengthen access to meaningful career opportunities for students.',
-        imageUrl: '/projects/images/my journey/Strada.JPG',
+        imageUrl: '/projects/images/my-journey-optimized/strada-scholar.jpg',
         link: 'https://youtu.be/Bd-e7JvvylQ?si=qLTtDmmn16xI9QPQ',
     },
     {
@@ -140,7 +141,7 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
         tag: 'scholarship',
         description:
             'Selected across three cycles, sharpening my focus on growth, opportunity, and mentoring other students.',
-        imageUrl: '/projects/images/my journey/TMCF.PNG',
+        imageUrl: '/projects/images/my-journey-optimized/tmcf-scholar.jpg',
         link: 'https://tmcf.org/photos/citi-hbcu-immersion-2025/',
     },
     {
@@ -150,7 +151,8 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
         tag: 'leadership',
         description:
             'Showed up to AfroTech to learn from top builders, grow my network, and stay close to where technology and culture meet.',
-        imageUrl: '/projects/images/my journey/Afrotech Conference.jpeg',
+        imageUrl:
+            '/projects/images/my-journey-optimized/afrotech-conference.jpg',
     },
     {
         stat: 'Milestone',
@@ -159,7 +161,7 @@ export const JOURNEY_ITEMS: JourneyItem[] = [
         tag: 'leadership',
         tagLabel: 'Personal Growth',
         description: 'Sometimes the challenge is simply saying "okay, go."',
-        imageUrl: '/projects/images/my journey/rollercoaster.JPG',
+        imageUrl: '/projects/images/my-journey-optimized/thunderbolt.jpg',
     },
 ];
 

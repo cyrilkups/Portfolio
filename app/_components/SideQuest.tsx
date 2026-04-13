@@ -5,7 +5,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import { useGSAP } from '@gsap/react';
 import { useLenis } from 'lenis/react';
-import { useRef } from 'react';
+import {
+    type MouseEventHandler,
+    type TouchEventHandler,
+    useEffect,
+    useRef,
+} from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
 import SectionTitle from '@/components/SectionTitle';
@@ -61,11 +66,13 @@ function SideQuestCard({
     index,
     variant,
     reverse = false,
+    onLinkClick,
 }: {
     item: (typeof JOURNEY_ITEMS)[number];
     index: number;
     variant: 'mobile' | 'desktop';
     reverse?: boolean;
+    onLinkClick?: MouseEventHandler<HTMLAnchorElement>;
 }) {
     const tagStyle = TAG_STYLES[item.tag];
     const isDesktop = variant === 'desktop';
@@ -73,9 +80,9 @@ function SideQuestCard({
     return (
         <article
             className={cn(
-                'group relative overflow-hidden bg-background/40 backdrop-blur-sm',
+                'group relative overflow-hidden bg-background/70 lg:bg-background/40 lg:backdrop-blur-sm',
                 isDesktop
-                    ? 'flex w-[90vw] max-w-[680px] shrink-0 flex-col justify-start gap-8 border-r border-border/70 px-6 py-8 transition-colors duration-300 hover:bg-background-light/30 sm:w-[580px] sm:px-10 sm:py-10 lg:w-[680px] lg:max-w-none lg:gap-6 lg:px-12 lg:py-8'
+                    ? 'flex w-[90vw] max-w-[680px] shrink-0 flex-col justify-start gap-8 border-r border-border/70 px-6 py-8 transition-colors duration-300 lg:hover:bg-background-light/30 sm:w-[580px] sm:px-10 sm:py-10 lg:w-[680px] lg:max-w-none lg:gap-6 lg:px-12 lg:py-8'
                     : 'rounded-[26px] border border-border/70 p-5 sm:p-6',
                 isDesktop && reverse && 'lg:flex-col-reverse',
             )}
@@ -160,12 +167,14 @@ function SideQuestCard({
                         src={item.imageUrl}
                         alt={item.name}
                         fill
+                        draggable={false}
+                        quality={isDesktop ? 72 : 68}
                         sizes={
                             isDesktop
                                 ? '(max-width: 640px) 90vw, (max-width: 1024px) 580px, 680px'
                                 : '(max-width: 640px) 86vw, (max-width: 1024px) 72vw, 540px'
                         }
-                        className="object-cover grayscale transition duration-500 group-hover:scale-[1.02] group-hover:grayscale-0"
+                        className="select-none object-cover transition duration-500 lg:grayscale lg:group-hover:scale-[1.02] lg:group-hover:grayscale-0"
                     />
 
                     {item.link ? (
@@ -173,8 +182,9 @@ function SideQuestCard({
                             href={item.link}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={onLinkClick}
                             className={cn(
-                                'absolute bottom-4 right-4 inline-flex items-center justify-center rounded-full border border-border/80 bg-background/90 text-foreground transition duration-300',
+                                'absolute bottom-4 right-4 inline-flex touch-manipulation items-center justify-center rounded-full border border-border/80 bg-background/90 text-foreground transition duration-300',
                                 isDesktop
                                     ? 'h-11 w-11 opacity-100 lg:opacity-0 lg:group-hover:opacity-100'
                                     : 'h-10 w-10 opacity-100',
@@ -195,10 +205,76 @@ export default function SideQuest() {
     const stickyRef = useRef<HTMLDivElement>(null);
     const viewportRef = useRef<HTMLDivElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
+    const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+    const isSwipeGestureRef = useRef(false);
+    const swipeResetTimeoutRef = useRef<number | null>(null);
 
     useLenis(() => {
         ScrollTrigger.update();
     }, []);
+
+    useEffect(() => {
+        return () => {
+            if (swipeResetTimeoutRef.current !== null) {
+                window.clearTimeout(swipeResetTimeoutRef.current);
+            }
+        };
+    }, []);
+
+    const clearSwipeResetTimeout = () => {
+        if (swipeResetTimeoutRef.current !== null) {
+            window.clearTimeout(swipeResetTimeoutRef.current);
+            swipeResetTimeoutRef.current = null;
+        }
+    };
+
+    const handleMobileTouchStart: TouchEventHandler<HTMLDivElement> = (
+        event,
+    ) => {
+        const touch = event.touches[0];
+        if (!touch) {
+            return;
+        }
+
+        clearSwipeResetTimeout();
+        touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+        isSwipeGestureRef.current = false;
+    };
+
+    const handleMobileTouchMove: TouchEventHandler<HTMLDivElement> = (event) => {
+        const touchStart = touchStartRef.current;
+        const touch = event.touches[0];
+
+        if (!touchStart || !touch) {
+            return;
+        }
+
+        if (
+            Math.abs(touch.clientX - touchStart.x) > 8 ||
+            Math.abs(touch.clientY - touchStart.y) > 8
+        ) {
+            isSwipeGestureRef.current = true;
+        }
+    };
+
+    const handleMobileTouchEnd: TouchEventHandler<HTMLDivElement> = () => {
+        touchStartRef.current = null;
+        clearSwipeResetTimeout();
+        swipeResetTimeoutRef.current = window.setTimeout(() => {
+            isSwipeGestureRef.current = false;
+        }, 160);
+    };
+
+    const handleJourneyLinkClick: MouseEventHandler<HTMLAnchorElement> = (
+        event,
+    ) => {
+        if (!isSwipeGestureRef.current) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+    };
 
     useGSAP(
         () => {
@@ -314,8 +390,12 @@ export default function SideQuest() {
 
                     <div className="lg:hidden">
                         <div
-                            data-lenis-prevent-touch
-                            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth [touch-action:pan-x_pan-y] overscroll-x-contain pb-4 -mx-4 px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6"
+                            data-lenis-prevent
+                            onTouchStart={handleMobileTouchStart}
+                            onTouchMove={handleMobileTouchMove}
+                            onTouchEnd={handleMobileTouchEnd}
+                            onTouchCancel={handleMobileTouchEnd}
+                            className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 overscroll-contain [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [touch-action:pan-x_pan-y] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6"
                         >
                             {JOURNEY_ITEMS.map((item, index) => (
                                 <div
@@ -326,6 +406,7 @@ export default function SideQuest() {
                                         item={item}
                                         index={index}
                                         variant="mobile"
+                                        onLinkClick={handleJourneyLinkClick}
                                     />
                                 </div>
                             ))}
@@ -334,7 +415,7 @@ export default function SideQuest() {
 
                     <div
                         ref={viewportRef}
-                        data-lenis-prevent-touch
+                        data-lenis-prevent
                         className="relative hidden lg:flex-1 lg:-mx-0 lg:block lg:overflow-hidden lg:px-0 lg:pb-0"
                     >
                         <div
