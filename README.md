@@ -2,7 +2,7 @@
 
 If you like this work, give it a star⭐.
 
-![Portfolio homepage preview](<Screenshot 2026-04-12 at 6.33.28 PM.png>)
+![Portfolio homepage preview](./public/readme/portfolio-homepage-preview.png)
 
 ## 🛠 Installation & Set Up
 
