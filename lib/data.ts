@@ -757,6 +757,11 @@ export const PROJECTS: IProject[] = [
 
 export const MY_EXPERIENCE: IExperience[] = [
     {
+        title: 'Software Engineering Intern',
+        company: 'Datadog Inc.',
+        duration: 'May 2026 - August 2026',
+    },
+    {
         title: 'AR/VR Designer & Developer',
         company: 'Voices of Grambling Initiative',
         duration: 'Sept 2025 - Present',

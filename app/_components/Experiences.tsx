@@ -58,10 +58,12 @@ const Experiences = () => {
 
                 <div className="grid gap-14">
                     {MY_EXPERIENCE.map((item) => {
+                        const experienceKey = `${item.company}-${item.title}-${item.duration}`;
+
                         if (item.url) {
                             return (
                                 <Link
-                                    key={item.title}
+                                    key={experienceKey}
                                     href={item.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -99,7 +101,7 @@ const Experiences = () => {
                         }
 
                         return (
-                            <div key={item.title} className="experience-item">
+                            <div key={experienceKey} className="experience-item">
                                 <p className="text-xl text-muted-foreground">
                                     {item.company}
                                 </p>
